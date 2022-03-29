@@ -17,3 +17,7 @@ input:-webkit-autofill:active {
 .primary-color {
   background-color: rgba(247, 77, 77, 1) !important;
 }
+
+.primary-color-text {
+  color: rgb(243, 93, 93) !important;
+}
