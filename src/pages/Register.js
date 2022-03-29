@@ -1,4 +1,6 @@
 import React from "react";
+import RegisterCard from "../components/RegisterCard";
+import AuthLeft from "../components/AuthLeft";
 
 export default function Register() {
   return (
@@ -6,7 +8,8 @@ export default function Register() {
       className="d-flex align-items-center justify-content-center"
       style={{ height: "100vh" }}
     >
-      Register
+      <AuthLeft />
+      <RegisterCard />
     </div>
   );
 }

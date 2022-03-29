@@ -3,6 +3,15 @@ input:focus {
   background-color: rgba(210, 210, 210, 0.25) !important;
   color: white !important;
   outline: none !important;
+  font-size: 12px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
+  -webkit-transition-delay: 9999s;
 }
 
 .primary-color {

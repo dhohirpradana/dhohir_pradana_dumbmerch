@@ -1,9 +1,32 @@
 import React from "react";
 import { MDBBtn } from "mdb-react-ui-kit";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function AuthLeft() {
-  const navigate = useNavigate ();
+  const location = useLocation().pathname;
+  const button = {
+    login: {
+      style: {
+        width: "100px",
+        backgroundColor: location === "/register" ? "black" : "",
+      },
+      class:
+        location === "/login"
+          ? "mt-3 btn-sm primary-color me-3 text-capitalize"
+          : "mt-3 btn-sm me-3 text-capitalize",
+    },
+    register: {
+      style: {
+        width: "100px",
+        backgroundColor: location === "/login" ? "black" : "",
+      },
+      class:
+        location === "/register"
+          ? "mt-3 btn-sm primary-color me-3 text-capitalize"
+          : "mt-3 btn-sm me-3 text-capitalize",
+    },
+  };
+  const navigate = useNavigate();
   return (
     <div className="d-inline-bloc me-5">
       <div className="pt-5">
@@ -24,17 +47,16 @@ export default function AuthLeft() {
       </div>
       <div>
         <MDBBtn
-          className="mt-3 btn-sm primary-color me-3 text-capitalize"
-          style={{ width: "100px" }}
+          onClick={() => navigate("/login")}
+          className={button.login.class}
+          style={button.login.style}
         >
           Login
         </MDBBtn>
         <MDBBtn
           onClick={() => navigate("/register")}
-          type="button"
-          className="btn btn-sm btn-link text-white text-capitalize"
-          data-mdb-ripple-color="dark"
-          style={{ backgroundColor: "black" }}
+          className={button.register.class}
+          style={button.register.style}
         >
           Register
         </MDBBtn>
