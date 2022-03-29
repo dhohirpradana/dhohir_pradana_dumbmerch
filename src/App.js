@@ -7,7 +7,7 @@ import Register from "./pages/Register";
 
 function App() {
   return (
-    <MDBContainer fluid style={{ height: "100vh" }}>
+    <MDBContainer className="d-flex p-2 align-items-center justify-content-center" style={{ height: "100vh" }}>
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />

@@ -4,7 +4,7 @@ import AuthLeft from "../components/AuthLeft";
 
 export default function Login() {
   return (
-    <div className="d-flex p-2 justify-content-center">
+    <div className="d-flex p-2 align-items-center justify-content-center">
       <AuthLeft />
       <LoginCard />
     </div>
