@@ -1,5 +1,5 @@
+import { MDBBtn, MDBCard, MDBCardBody } from "mdb-react-ui-kit";
 import React from "react";
-import { MDBCard, MDBCardBody, MDBBtn } from "mdb-react-ui-kit";
 
 export default function LoginCard() {
   return (

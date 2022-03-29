@@ -29,7 +29,7 @@ export default function AuthLeft() {
         >
           Login
         </MDBBtn>
-        <button
+        <MDBBtn
           onClick={() => navigate("/register")}
           type="button"
           className="btn btn-sm btn-link text-white text-capitalize"
@@ -37,7 +37,7 @@ export default function AuthLeft() {
           style={{ backgroundColor: "black" }}
         >
           Register
-        </button>
+        </MDBBtn>
       </div>
     </div>
   );
