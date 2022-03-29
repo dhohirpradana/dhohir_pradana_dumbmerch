@@ -1,0 +1,10 @@
+.auth input,
+input:focus {
+  background-color: rgba(210, 210, 210, 0.25) !important;
+  color: white !important;
+  outline: none !important;
+}
+
+.primary-color {
+  background-color: rgba(247, 77, 77, 1) !important;
+}
