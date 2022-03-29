@@ -10,7 +10,7 @@ export default function Product(props) {
         alt="Sunset Over the Sea"
         style={{ height: "12rem" }}
       />
-      <div className="px-2 pt-2 pb-1">
+      <div className="px-2 py-2">
         <div
           className="fw-bold primary-color-text"
           style={{ fontSize: "14px" }}
