@@ -1,5 +1,5 @@
 import "./App.css";
-import "./Style.css";
+import "./styles/Style.css";
 import Login from "./pages/Login";
 import { MDBContainer } from "mdb-react-ui-kit";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
