@@ -1,16 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Product from "../components/Product";
 
 export default function Home() {
-  var products = JSON.parse(localStorage.getItem("tb_product"));
-  console.log(products);
-  let productComponents = [];
-
-  for (const data of products) {
-    productComponents.push(<Product key={data.id} dataProduct={data} />);
-  }
-
+  const [products, setProducts] = useState([]);
+  useEffect(() => setProducts(JSON.parse(localStorage.getItem("tb_product"))), []);
   return (
     <div>
       <NavBar />
