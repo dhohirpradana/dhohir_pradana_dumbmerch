@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 export default function NavBar() {
   return (
-    <div className="sticky-top pt-2 pb-2">
+    <div className="sticky-top">
       <nav
         className="navbar navbar-expand-lg navbar-dark mx-3 mb-4"
-        style={{ backgroundColor: "black", maxHeight: "50px" }}
+        style={{ backgroundColor: "black", maxHeight: "60px" }}
       >
-        <div className="container-fluid">
+        <div className="container-fluid  pb-2 pt-2">
           <div className="collapse navbar-collapse" id="navbarLeftAlign">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">

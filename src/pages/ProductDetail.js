@@ -16,7 +16,7 @@ export default function ProductDetail() {
       <div className="mx-5 px-5">
         <div className="d-flex mx-4 justify-content-center align-items-start">
             
-          {/* Right Side */}
+          {/* Left Side */}
           <div className="me-4">
             <img
               src={product.src}

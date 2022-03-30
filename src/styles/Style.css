@@ -25,3 +25,7 @@ input:-webkit-autofill:active {
 #p_wrap {
   white-space: pre-line;
 }
+
+nav {
+  z-index: 1 !important;
+}

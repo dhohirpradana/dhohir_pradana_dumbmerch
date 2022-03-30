@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import PrivateRoute from "./components/PrivateRoute";
 import ProductDetail from "./pages/ProductDetail";
 import Buy from "./components/Buy";
+import Profile from "./pages/Profile";
 
 function App() {
   let products = [
@@ -14,7 +15,7 @@ function App() {
       id: 1,
       name: "Mouse",
       src: "https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp",
-      price: "500.000",
+      price: 500000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -28,7 +29,7 @@ function App() {
       id: 2,
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      price: "700.000",
+      price: 700000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -42,7 +43,7 @@ function App() {
       id: 3,
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      price: "700.000",
+      price: 700000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -56,7 +57,7 @@ function App() {
       id: 4,
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      price: "700.000",
+      price: 700000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -70,7 +71,7 @@ function App() {
       id: 5,
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      price: "700.000",
+      price: 700000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -84,7 +85,7 @@ function App() {
       id: 6,
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      price: "700.000",
+      price: 700000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -98,7 +99,7 @@ function App() {
       id: 7,
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      price: "700.000",
+      price: 700000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -112,7 +113,7 @@ function App() {
       id: 8,
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      price: "700.000",
+      price: 700000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -126,7 +127,7 @@ function App() {
       id: 9,
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      price: "700.000",
+      price: 700000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -138,7 +139,19 @@ function App() {
     },
   ];
 
+  let transactions = [
+    {
+      id: 1,
+      date: "Wed Mar 30 2022 13:08:48 GMT+0700 (Waktu Indonesia Barat)",
+      price: 500000,
+      count: 1,
+      discount: 0,
+      user_id: 1,
+    },
+  ];
+
   localStorage.setItem("tb_product", JSON.stringify(products));
+  localStorage.setItem("tb_transaction", JSON.stringify(transactions));
 
   return (
     <>
@@ -150,6 +163,7 @@ function App() {
           <Route path="/product-detail/:id" element={<ProductDetail />} />
           <Route element={<PrivateRoute />}>
             <Route path="/buy/:id" element={<Buy />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
         </Routes>
       </Router>
