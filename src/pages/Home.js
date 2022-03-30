@@ -3,7 +3,8 @@ import NavBar from "../components/NavBar";
 import Product from "../components/Product";
 
 export default function Home() {
-  var products = JSON.parse(localStorage.getItem("products"));
+  var products = JSON.parse(localStorage.getItem("tb_product"));
+  console.log(products);
   let productComponents = [];
 
   for (const data of products) {
@@ -16,7 +17,7 @@ export default function Home() {
       <div className="mx-5 pt-1">
         <div className="fw-bold primary-color-text">Product</div>
         <div className="mt-3 d-flex">
-          <div className="row">{productComponents}</div>
+          <div className="row mb-4">{productComponents}</div>
         </div>
       </div>
     </div>
