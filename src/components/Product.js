@@ -7,8 +7,8 @@ export default function Product(props) {
   return (
     <div
       onClick={() => navigate("/product-detail/" + dataProduct?.id)}
-      className="card text-white bg-dark me-2"
-      style={{ width: "10rem" }}
+      className="card text-white bg-dark m-2 p-0"
+      style={{ width: "10.3rem" }}
     >
       <img
         src={dataProduct?.src}
