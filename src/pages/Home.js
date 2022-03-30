@@ -15,7 +15,9 @@ export default function Home() {
       <NavBar />
       <div className="mx-5 pt-1">
         <div className="fw-bold primary-color-text">Product</div>
-        <div className="mt-3 d-flex">{productComponents}</div>
+        <div className="mt-3 d-flex">
+          <div className="row">{productComponents}</div>
+        </div>
       </div>
     </div>
   );
