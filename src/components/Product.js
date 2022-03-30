@@ -1,9 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Product(props) {
   const dataProduct = props.dataProduct;
+  const navigate = useNavigate();
   return (
-    <div className="card text-white bg-dark me-2" style={{ width: "10rem" }}>
+    <div
+      onClick={() => navigate("/product-detail/" + dataProduct?.id)}
+      className="card text-white bg-dark me-2"
+      style={{ width: "10rem" }}
+    >
       <img
         src={dataProduct?.src}
         className="card-img-top"
