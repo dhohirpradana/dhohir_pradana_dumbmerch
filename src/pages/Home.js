@@ -9,7 +9,7 @@ export default function Home() {
     <div>
       <NavBar />
       <div className="mx-5 pt-1">
-        <div className="fw-bold primary-color-text">Product</div>
+        <div className="fw-bold fs-4 primary-color-text">Product</div>
         <div className="mt-3 d-flex">
           <div className="row mb-4">
             {products.map((product, index) => (

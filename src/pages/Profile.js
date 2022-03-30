@@ -11,14 +11,14 @@ export default function Profile() {
       <div className="mx-5 d-flex justify-content-center">
         {/* L */}
         <div className="me-1">
-          <div className="fw-bold primary-color-text">My Profile</div>
+          <div className="fw-bold fs-4 primary-color-text">My Profile</div>
           <div className="d-flex mt-4 align-items-start">
             {/* L */}
             <div className="me-4">
               <img
                 src="https://images.unsplash.com/photo-1583692331507-fc0bd348695d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
                 alt="profilePicture"
-                style={{ height: "365px", width: "275px", objectFit: "cover" }}
+                style={{ height: "370px", width: "275px", objectFit: "cover" }}
               ></img>
             </div>
             {/* R */}
@@ -50,8 +50,8 @@ export default function Profile() {
           </div>
         </div>
         {/* R */}
-        <div style={{ width: "50%" }}>
-          <div className="fw-bold primary-color-text">My Transaction</div>{" "}
+        <div style={{ width: "55%" }}>
+          <div className="fw-bold fs-4 primary-color-text">My Transaction</div>
           <MDBCard
             className="mt-4"
             background="dark"

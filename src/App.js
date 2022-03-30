@@ -148,6 +148,14 @@ function App() {
       discount: 0,
       user_id: 1,
     },
+    {
+      id: 2,
+      date: "Wed Mar 30 2022 13:08:48 GMT+0700 (Waktu Indonesia Barat)",
+      price: 600000,
+      count: 2,
+      discount: 0,
+      user_id: 1,
+    },
   ];
 
   localStorage.setItem("tb_product", JSON.stringify(products));

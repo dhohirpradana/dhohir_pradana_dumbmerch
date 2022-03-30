@@ -3,6 +3,7 @@
 import { MDBBtn } from "mdb-react-ui-kit";
 import React from "react";
 import { useParams } from "react-router-dom";
+import NumFormat from "../components/NumFormat";
 import NavBar from "../components/NavBar";
 import NotFound from "./NotFound";
 
@@ -15,7 +16,6 @@ export default function ProductDetail() {
       <NavBar />
       <div className="mx-5 px-5">
         <div className="d-flex mx-4 justify-content-center align-items-start">
-            
           {/* Left Side */}
           <div className="me-4">
             <img
@@ -31,7 +31,9 @@ export default function ProductDetail() {
             <p>Stock : {product.stock}</p>
             <p id="p_wrap">{product.description}</p>
             <div className="d-flex flex-row-reverse mb-4 mt-4">
-              <h5 className="primary-color-text">Rp.{product.price}</h5>
+              <h5 className="primary-color-text">
+                {NumFormat(product.price, "Rp.")}
+              </h5>
             </div>
             <MDBBtn
               className="primary-color text-capitalize"
