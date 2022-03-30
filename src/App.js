@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import PrivateRoute from "./components/PrivateRoute";
 import ProductDetail from "./pages/ProductDetail";
+import Buy from "./components/Buy";
 
 function App() {
   let products = [
@@ -145,10 +146,10 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/product-detail/:id" element={<ProductDetail />} />
           <Route element={<PrivateRoute />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/product-detail/:id" element={<ProductDetail />} />
+            <Route path="/buy/:id" element={<Buy />} />
           </Route>
         </Routes>
       </Router>
