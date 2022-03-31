@@ -8,6 +8,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import ProductDetail from "./pages/ProductDetail";
 import Buy from "./components/Buy";
 import Profile from "./pages/Profile";
+import Category from "./pages/Category";
+import Product from "./pages/Product";
 
 function App() {
   let products = [
@@ -23,7 +25,7 @@ function App() {
       - Baterai tahan hingga 12 bulan
       
       Mouse Wireless Alytech AL - Y5D, hadir dengan desain 3 tombol mouse yang ringan dan mudah dibawa. Mouse ini menggunakan frekuensi radio 2.4GHz (bekerja hingga jarak 10m) dan fitur sensor canggih optik pelacakan dengan penerima USB yang kecil. Mouse ini didukung oleh 1x baterai AA (hingga 12 bulan hidup baterai). mendukung sistem operasi Windows 7,8, 10 keatas, Mac OS X 10.8 atau yang lebih baru dan sistem operasi Chrome OS.`,
-      stock: 600,
+      qty: 600,
     },
     {
       id: 2,
@@ -37,7 +39,7 @@ function App() {
       - Baterai tahan hingga 12 bulan
       
       Mouse Wireless Alytech AL - Y5D, hadir dengan desain 3 tombol mouse yang ringan dan mudah dibawa. Mouse ini menggunakan frekuensi radio 2.4GHz (bekerja hingga jarak 10m) dan fitur sensor canggih optik pelacakan dengan penerima USB yang kecil. Mouse ini didukung oleh 1x baterai AA (hingga 12 bulan hidup baterai). mendukung sistem operasi Windows 7,8, 10 keatas, Mac OS X 10.8 atau yang lebih baru dan sistem operasi Chrome OS.`,
-      stock: 600,
+      qty: 600,
     },
     {
       id: 3,
@@ -51,7 +53,7 @@ function App() {
       - Baterai tahan hingga 12 bulan
       
       Mouse Wireless Alytech AL - Y5D, hadir dengan desain 3 tombol mouse yang ringan dan mudah dibawa. Mouse ini menggunakan frekuensi radio 2.4GHz (bekerja hingga jarak 10m) dan fitur sensor canggih optik pelacakan dengan penerima USB yang kecil. Mouse ini didukung oleh 1x baterai AA (hingga 12 bulan hidup baterai). mendukung sistem operasi Windows 7,8, 10 keatas, Mac OS X 10.8 atau yang lebih baru dan sistem operasi Chrome OS.`,
-      stock: 600,
+      qty: 600,
     },
     {
       id: 4,
@@ -65,7 +67,7 @@ function App() {
       - Baterai tahan hingga 12 bulan
       
       Mouse Wireless Alytech AL - Y5D, hadir dengan desain 3 tombol mouse yang ringan dan mudah dibawa. Mouse ini menggunakan frekuensi radio 2.4GHz (bekerja hingga jarak 10m) dan fitur sensor canggih optik pelacakan dengan penerima USB yang kecil. Mouse ini didukung oleh 1x baterai AA (hingga 12 bulan hidup baterai). mendukung sistem operasi Windows 7,8, 10 keatas, Mac OS X 10.8 atau yang lebih baru dan sistem operasi Chrome OS.`,
-      stock: 600,
+      qty: 600,
     },
     {
       id: 5,
@@ -79,7 +81,7 @@ function App() {
       - Baterai tahan hingga 12 bulan
       
       Mouse Wireless Alytech AL - Y5D, hadir dengan desain 3 tombol mouse yang ringan dan mudah dibawa. Mouse ini menggunakan frekuensi radio 2.4GHz (bekerja hingga jarak 10m) dan fitur sensor canggih optik pelacakan dengan penerima USB yang kecil. Mouse ini didukung oleh 1x baterai AA (hingga 12 bulan hidup baterai). mendukung sistem operasi Windows 7,8, 10 keatas, Mac OS X 10.8 atau yang lebih baru dan sistem operasi Chrome OS.`,
-      stock: 600,
+      qty: 600,
     },
     {
       id: 6,
@@ -93,7 +95,7 @@ function App() {
       - Baterai tahan hingga 12 bulan
       
       Mouse Wireless Alytech AL - Y5D, hadir dengan desain 3 tombol mouse yang ringan dan mudah dibawa. Mouse ini menggunakan frekuensi radio 2.4GHz (bekerja hingga jarak 10m) dan fitur sensor canggih optik pelacakan dengan penerima USB yang kecil. Mouse ini didukung oleh 1x baterai AA (hingga 12 bulan hidup baterai). mendukung sistem operasi Windows 7,8, 10 keatas, Mac OS X 10.8 atau yang lebih baru dan sistem operasi Chrome OS.`,
-      stock: 600,
+      qty: 600,
     },
     {
       id: 7,
@@ -107,7 +109,7 @@ function App() {
       - Baterai tahan hingga 12 bulan
       
       Mouse Wireless Alytech AL - Y5D, hadir dengan desain 3 tombol mouse yang ringan dan mudah dibawa. Mouse ini menggunakan frekuensi radio 2.4GHz (bekerja hingga jarak 10m) dan fitur sensor canggih optik pelacakan dengan penerima USB yang kecil. Mouse ini didukung oleh 1x baterai AA (hingga 12 bulan hidup baterai). mendukung sistem operasi Windows 7,8, 10 keatas, Mac OS X 10.8 atau yang lebih baru dan sistem operasi Chrome OS.`,
-      stock: 600,
+      qty: 600,
     },
     {
       id: 8,
@@ -121,7 +123,7 @@ function App() {
       - Baterai tahan hingga 12 bulan
       
       Mouse Wireless Alytech AL - Y5D, hadir dengan desain 3 tombol mouse yang ringan dan mudah dibawa. Mouse ini menggunakan frekuensi radio 2.4GHz (bekerja hingga jarak 10m) dan fitur sensor canggih optik pelacakan dengan penerima USB yang kecil. Mouse ini didukung oleh 1x baterai AA (hingga 12 bulan hidup baterai). mendukung sistem operasi Windows 7,8, 10 keatas, Mac OS X 10.8 atau yang lebih baru dan sistem operasi Chrome OS.`,
-      stock: 600,
+      qty: 600,
     },
     {
       id: 9,
@@ -135,7 +137,7 @@ function App() {
       - Baterai tahan hingga 12 bulan
       
       Mouse Wireless Alytech AL - Y5D, hadir dengan desain 3 tombol mouse yang ringan dan mudah dibawa. Mouse ini menggunakan frekuensi radio 2.4GHz (bekerja hingga jarak 10m) dan fitur sensor canggih optik pelacakan dengan penerima USB yang kecil. Mouse ini didukung oleh 1x baterai AA (hingga 12 bulan hidup baterai). mendukung sistem operasi Windows 7,8, 10 keatas, Mac OS X 10.8 atau yang lebih baru dan sistem operasi Chrome OS.`,
-      stock: 300,
+      qty: 300,
     },
   ];
 
@@ -158,29 +160,43 @@ function App() {
     },
   ];
 
+  const categories = [
+    { id: 1, name: "Mouse" },
+    { id: 2, name: "Keyboard" },
+    { id: 3, name: "Monitor" },
+    { id: 4, name: "HDD" },
+    { id: 4, name: "HDD" },
+    { id: 4, name: "HDD" },
+    { id: 4, name: "HDD" },
+    { id: 4, name: "HDD" },
+  ];
+
   const user = {
     id: 1,
     name: "Dhohir Pradana",
     email: "contact@dhohirpradana.com",
     phone: "081335343635",
     address: "Alamat...",
-    role: 1,
+    role: 3,
   };
 
   localStorage.setItem("products", JSON.stringify(products));
   localStorage.setItem("transactions", JSON.stringify(transactions));
+  localStorage.setItem("categories", JSON.stringify(categories));
   localStorage.setItem("user", JSON.stringify(user));
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/product-detail/:id" element={<ProductDetail />} />
-          <Route element={<PrivateRoute />}>
-            <Route path="/buy/:id" element={<Buy />} />
-            <Route path="/profile" element={<Profile />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/register" element={<Register />} />
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/product-detail/:id" element={<ProductDetail />} />
+          <Route element={<PrivateRoute user={user} />}>
+            <Route exact path="/buy/:id" element={<Buy />} />
+            <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/category" element={<Category />} />
+            <Route exact path="/product" element={<Product />} />
           </Route>
         </Routes>
       </Router>

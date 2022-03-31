@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
-import Product from "../components/Product";
+import ProductCard from "../components/ProductCard";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -9,11 +9,11 @@ export default function Home() {
     <div>
       <NavBar />
       <div className="mx-5 pt-1">
-        <div className="fw-bold fs-4 primary-color-text">Product</div>
-        <div className="mt-3 d-flex">
+        <div className="fw-bold fs-4 primary-color-text mb-3">Product</div>
+        <div className="d-flex">
           <div className="row mb-4">
             {products.map((product, index) => (
-              <Product key={index} dataProduct={product} />
+              <ProductCard key={index} dataProduct={product} />
             ))}
           </div>
         </div>

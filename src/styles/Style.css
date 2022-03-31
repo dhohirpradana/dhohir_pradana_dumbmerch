@@ -29,3 +29,17 @@ input:-webkit-autofill:active {
 nav {
   z-index: 1 !important;
 }
+
+.table-wrapper {
+  max-height: 68vh;
+  width: 100%;
+  overflow: auto;
+  display: inline-block;
+}
+
+#td_no_wrap {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}

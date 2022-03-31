@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import NumFormat from "./NumFormat";
 
-export default function Product(props) {
+export default function ProductCard(props) {
   const dataProduct = props.dataProduct;
   const navigate = useNavigate();
   return (
@@ -28,7 +28,7 @@ export default function Product(props) {
           {NumFormat(dataProduct?.price, "Rp.")}
         </div>
         <div className="fw-light" style={{ fontSize: "11px" }}>
-          Stock &nbsp;:&nbsp; {dataProduct?.stock ?? " -"}
+          Stock &nbsp;:&nbsp; {dataProduct?.qty ?? " -"}
         </div>
       </div>
     </div>

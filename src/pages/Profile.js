@@ -6,7 +6,7 @@ export default function Profile() {
   var transactions = JSON.parse(localStorage.getItem("transactions"));
   return (
     <div>
-      <NavBar />
+      <NavBar page="profile" />
       <div className="mx-5 d-flex justify-content-center">
         {/* L */}
         <div className="me-1">
@@ -50,10 +50,12 @@ export default function Profile() {
         </div>
         {/* R */}
         <div style={{ width: "55%" }}>
-          <div className="fw-bold fs-4 primary-color-text mb-4">My Transaction</div>
-            {transactions.map((transaction, index) => (
-              <MyTransaction key={index} transaction={transaction} />
-            ))}
+          <div className="fw-bold fs-4 primary-color-text mb-4">
+            My Transaction
+          </div>
+          {transactions.map((transaction, index) => (
+            <MyTransaction key={index} transaction={transaction} />
+          ))}
         </div>
       </div>
     </div>

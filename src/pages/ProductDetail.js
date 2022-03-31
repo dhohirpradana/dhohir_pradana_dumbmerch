@@ -28,7 +28,7 @@ export default function ProductDetail() {
           {/* Right Side */}
           <div className="ms-3 text-light fw-light mt-4">
             <h3 className="primary-color-text">{product.name}</h3>
-            <p>Stock : {product.stock}</p>
+            <p>Stock : {product.qty}</p>
             <p id="p_wrap">{product.description}</p>
             <div className="d-flex flex-row-reverse mb-4 mt-4">
               <h5 className="primary-color-text">
