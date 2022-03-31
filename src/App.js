@@ -158,9 +158,18 @@ function App() {
     },
   ];
 
-  localStorage.setItem("tb_product", JSON.stringify(products));
-  localStorage.setItem("tb_transaction", JSON.stringify(transactions));
+  const user = {
+    id: 1,
+    name: "Dhohir Pradana",
+    email: "contact@dhohirpradana.com",
+    phone: "081335343635",
+    address: "Alamat...",
+    role: 1,
+  };
 
+  localStorage.setItem("products", JSON.stringify(products));
+  localStorage.setItem("transactions", JSON.stringify(transactions));
+  localStorage.setItem("user", JSON.stringify(user));
   return (
     <>
       <Router>

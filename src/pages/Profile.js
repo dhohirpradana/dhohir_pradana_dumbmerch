@@ -1,10 +1,9 @@
-import { MDBCard } from "mdb-react-ui-kit";
 import React from "react";
 import MyTransaction from "../components/MyTransaction";
 import NavBar from "../components/NavBar";
 
 export default function Profile() {
-  var transactions = JSON.parse(localStorage.getItem("tb_transaction"));
+  var transactions = JSON.parse(localStorage.getItem("transactions"));
   return (
     <div>
       <NavBar />
@@ -51,17 +50,10 @@ export default function Profile() {
         </div>
         {/* R */}
         <div style={{ width: "55%" }}>
-          <div className="fw-bold fs-4 primary-color-text">My Transaction</div>
-          <MDBCard
-            className="mt-4"
-            background="dark"
-            style={{ width: "100%", color: "white", borderRadius: "0" }}
-            alignment="center"
-          >
+          <div className="fw-bold fs-4 primary-color-text mb-4">My Transaction</div>
             {transactions.map((transaction, index) => (
               <MyTransaction key={index} transaction={transaction} />
             ))}
-          </MDBCard>
         </div>
       </div>
     </div>

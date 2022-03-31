@@ -9,7 +9,7 @@ import NotFound from "./NotFound";
 
 export default function ProductDetail() {
   const params = useParams();
-  var products = JSON.parse(localStorage.getItem("tb_product"));
+  var products = JSON.parse(localStorage.getItem("products"));
   var product = products?.find((x) => x.id == params.id);
   return product ? (
     <div>

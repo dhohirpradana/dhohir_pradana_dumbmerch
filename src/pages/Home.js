@@ -4,7 +4,7 @@ import Product from "../components/Product";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
-  useEffect(() => setProducts(JSON.parse(localStorage.getItem("tb_product"))), []);
+  useEffect(() => setProducts(JSON.parse(localStorage.getItem("products"))), []);
   return (
     <div>
       <NavBar />
