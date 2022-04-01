@@ -1,7 +1,9 @@
-import { MDBBtn, MDBCard, MDBCardBody } from "mdb-react-ui-kit";
+import { MDBCard, MDBCardBody } from "mdb-react-ui-kit";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginCard() {
+  const navigate = useNavigate();
   return (
     <div className="ms-5">
       <MDBCard
@@ -23,12 +25,13 @@ export default function LoginCard() {
             className="form-control mb-4"
             placeholder="Password"
           />
-          <MDBBtn
-            className="mt-2 primary-color text-capitalize"
+          <button
+            onClick={() => navigate("/")}
+            className="btn text-light mt-2 primary-color text-capitalize"
             style={{ width: "100%" }}
           >
             Login
-          </MDBBtn>
+          </button>
         </MDBCardBody>
       </MDBCard>
     </div>

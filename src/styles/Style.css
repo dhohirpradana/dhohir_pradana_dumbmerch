@@ -6,6 +6,16 @@ input:focus {
   font-size: 12px;
 }
 
+.edit input,
+textarea,
+textarea:focus,
+input:focus {
+  background-color: rgba(210, 210, 210, 0.25) !important;
+  color: white !important;
+  outline: none !important;
+  font-size: 16px;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -31,7 +41,7 @@ nav {
 }
 
 .table-wrapper {
-  max-height: 68vh;
+  max-height: 70vh;
   width: 100%;
   overflow: auto;
   display: inline-block;

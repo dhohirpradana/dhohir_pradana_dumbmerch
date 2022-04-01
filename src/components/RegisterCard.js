@@ -1,4 +1,4 @@
-import { MDBBtn, MDBCard, MDBCardBody } from "mdb-react-ui-kit";
+import { MDBCard, MDBCardBody } from "mdb-react-ui-kit";
 import React from "react";
 
 export default function RegisterCard() {
@@ -29,12 +29,12 @@ export default function RegisterCard() {
             className="form-control mb-4"
             placeholder="Password"
           />
-          <MDBBtn
-            className="mt-2 primary-color text-capitalize"
+          <button
+            className="btn text-light mt-2 primary-color text-capitalize"
             style={{ width: "100%" }}
           >
             Register
-          </MDBBtn>
+          </button>
         </MDBCardBody>
       </MDBCard>
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "./App.css";
 import "./styles/Style.css";
 import Login from "./pages/Login";
@@ -10,6 +11,10 @@ import Buy from "./components/Buy";
 import Profile from "./pages/Profile";
 import Category from "./pages/Category";
 import Product from "./pages/Product";
+import CategoryEdit from "./pages/CategoryEdit";
+import ProductEdit from "./pages/ProductEdit";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Complain from "./pages/Complain";
 
 function App() {
   let products = [
@@ -18,6 +23,7 @@ function App() {
       name: "Mouse",
       src: "https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp",
       price: 500000,
+      weight: 1000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -32,6 +38,7 @@ function App() {
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
       price: 700000,
+      weight: 1000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -46,6 +53,7 @@ function App() {
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
       price: 700000,
+      weight: 1000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -60,6 +68,7 @@ function App() {
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
       price: 700000,
+      weight: 1000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -74,6 +83,7 @@ function App() {
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
       price: 700000,
+      weight: 1000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -88,6 +98,7 @@ function App() {
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
       price: 700000,
+      weight: 1000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -102,6 +113,7 @@ function App() {
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
       price: 700000,
+      weight: 1000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -116,6 +128,7 @@ function App() {
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
       price: 700000,
+      weight: 1000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -130,6 +143,7 @@ function App() {
       name: "Keyboard",
       src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
       price: 700000,
+      weight: 1000,
       description: `- Wireless Mouse
       - Konektivitas wireless 2.4 GHz
       - Jarak wireless hingga 10 m
@@ -165,10 +179,10 @@ function App() {
     { id: 2, name: "Keyboard" },
     { id: 3, name: "Monitor" },
     { id: 4, name: "HDD" },
-    { id: 4, name: "HDD" },
-    { id: 4, name: "HDD" },
-    { id: 4, name: "HDD" },
-    { id: 4, name: "HDD" },
+    { id: 5, name: "HDD" },
+    { id: 6, name: "HDD" },
+    { id: 7, name: "HDD" },
+    { id: 8, name: "HDD" },
   ];
 
   const user = {
@@ -176,27 +190,39 @@ function App() {
     name: "Dhohir Pradana",
     email: "contact@dhohirpradana.com",
     phone: "081335343635",
-    address: "Alamat...",
+    gender: "Male",
+    address: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. Grobogan, Indonesia`,
+    destinationAddress: [{ city: "Grobogan", cityId: 134 }],
     role: 3,
   };
 
-  localStorage.setItem("products", JSON.stringify(products));
-  localStorage.setItem("transactions", JSON.stringify(transactions));
-  localStorage.setItem("categories", JSON.stringify(categories));
+  // localStorage.setItem("products", JSON.stringify(products));
+  // localStorage.setItem("transactions", JSON.stringify(transactions));
+  // localStorage.setItem("categories", JSON.stringify(categories));
   localStorage.setItem("user", JSON.stringify(user));
+
   return (
     <>
       <Router>
         <Routes>
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/product-detail/:id" element={<ProductDetail />} />
           <Route element={<PrivateRoute user={user} />}>
+            <Route exact path="/" element={<Home />} />
+            <Route
+              exact
+              path="/product-detail/:id"
+              element={<ProductDetail />}
+            />
             <Route exact path="/buy/:id" element={<Buy />} />
             <Route exact path="/profile" element={<Profile />} />
-            <Route exact path="/category" element={<Category />} />
-            <Route exact path="/product" element={<Product />} />
+            <Route exact path="/complain" element={<Complain />} />
+            <Route element={<ProtectedRoute user={user} />}>
+              <Route exact path="/category" element={<Category />} />
+              <Route exact path="/category-edit" element={<CategoryEdit />} />
+              <Route exact path="/product" element={<Product />} />
+              <Route exact path="/product-edit" element={<ProductEdit />} />
+            </Route>
           </Route>
         </Routes>
       </Router>

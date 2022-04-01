@@ -29,32 +29,32 @@ export default function MyTransaction(props) {
               ></img>
             </div>
             <div className="text-start">
-              <div className="primary-color-text" style={{ fontSize: 12 }}>
+              <div className="primary-color-text" style={{ fontSize: 14 }}>
                 {product.name}
               </div>
               <div className="d-flex">
                 <div
                   className="primary-color-text me-1"
-                  style={{ fontSize: 8, fontWeight: "bold" }}
+                  style={{ fontSize: 10, fontWeight: "bold" }}
                 >
                   {date.day + ","}
                 </div>
                 <div
                   className="primary-color-text"
-                  style={{ fontSize: 8, fontWeight: "lighter" }}
+                  style={{ fontSize: 10, fontWeight: "lighter" }}
                 >
                   {date.date + " " + date.month + " " + date.year}
                 </div>
               </div>
               <div
                 className="mt-1"
-                style={{ fontSize: 8, fontWeight: "lighter" }}
+                style={{ fontSize: 10, fontWeight: "lighter" }}
               >
                 Price : {price}
               </div>
               <div
                 className="mt-4"
-                style={{ fontSize: 10, fontWeight: "bold" }}
+                style={{ fontSize: 12, fontWeight: "bold" }}
               >
                 Sub Total : {subTotal}
               </div>

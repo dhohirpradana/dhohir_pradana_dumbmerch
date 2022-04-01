@@ -1,9 +1,9 @@
-import React from "react";
 import MyTransaction from "../components/MyTransaction";
 import NavBar from "../components/NavBar";
 
 export default function Profile() {
   var transactions = JSON.parse(localStorage.getItem("transactions"));
+  var user = JSON.parse(localStorage.getItem("user"));
   return (
     <div>
       <NavBar page="profile" />
@@ -24,26 +24,23 @@ export default function Profile() {
             <div className="text-light fw-light">
               <div className="mb-3">
                 <div className="primary-color-text">Name</div>
-                <div>Dhohir Pradana</div>
+                <div>{user.name}</div>
               </div>
               <div className="mb-3">
                 <div className="primary-color-text">Email</div>
-                <div>contact@dhohirpradana.com</div>
+                <div>{user.email}</div>
               </div>
               <div className="mb-3">
                 <div className="primary-color-text">Phone</div>
-                <div>081335343635</div>
+                <div>{user.phone}</div>
               </div>
               <div className="mb-3">
                 <div className="primary-color-text">Gender</div>
-                <div>Male</div>
+                <div>{user.gender}</div>
               </div>
               <div>
                 <div className="primary-color-text">Address</div>
-                <div id="p_wrap">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                </div>
+                <div id="p_wrap">{user.address}</div>
               </div>
             </div>
           </div>

@@ -23,32 +23,32 @@ export default function NavBar(props) {
       </Link>
     </li>,
   ];
-  if (user) {
-    if (user.role == 3) {
-      li = [
-        <li key="complain" className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/complain">
-            Complain
-          </Link>
-        </li>,
-        <li key="category" className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/category">
-            Category
-          </Link>
-        </li>,
-        <li key="product" className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/product">
-            Product
-          </Link>
-        </li>,
-        <li key="login" className="nav-item">
-          <Link className="nav-link active" aria-current="page" to="/login">
-            Logout
-          </Link>
-        </li>,
-      ];
-    }
+
+  if (user.role == 3) {
+    li = [
+      <li key="complain" className="nav-item">
+        <Link className="nav-link active" aria-current="page" to="/complain">
+          Complain
+        </Link>
+      </li>,
+      <li key="category" className="nav-item">
+        <Link className="nav-link active" aria-current="page" to="/category">
+          Category
+        </Link>
+      </li>,
+      <li key="product" className="nav-item">
+        <Link className="nav-link active" aria-current="page" to="/product">
+          Product
+        </Link>
+      </li>,
+      <li key="login" className="nav-item">
+        <Link className="nav-link active" aria-current="page" to="/login">
+          Logout
+        </Link>
+      </li>,
+    ];
   }
+
   if (page) {
     li?.find((x) => x.key == page);
     var liIndex = li
@@ -68,6 +68,7 @@ export default function NavBar(props) {
       </li>
     );
   }
+
   return (
     <div className="sticky-top">
       <nav

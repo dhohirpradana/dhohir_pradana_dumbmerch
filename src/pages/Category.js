@@ -1,13 +1,34 @@
-import React from "react";
+/* eslint-disable eqeqeq */
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 
 export default function Category() {
-  let categories = JSON.parse(localStorage.getItem("categories"));
+  const [categories, setCategories] = useState(
+    JSON.parse(localStorage.getItem("categories"))
+  );
+  const [categoryId, setCategoryId] = useState("");
+  const navigate = useNavigate();
+
+  const handleDeleteClick = (id) => {
+    setCategoryId(id);
+  };
+  
+    const deleteCategory = (id) => {
+      setCategories(categories.filter((item) => item.id != id));
+    };
+
+  const handleEditClick = (id) => {
+    navigate("/category-edit", {
+      state: categories.filter((item) => item.id == id)[0],
+    });
+  };
+
   return (
     <div>
       <NavBar page="category" />
       <div className="mx-5 pt-1">
-        <div className="fw-bold fs-4 text-light mb-3 mt-5">List Category</div>
+        <div className="fw-bold fs-4 text-light mb-3 mt-4">List Category</div>
         <div className="table-wrapper">
           <table className="table table-striped table-dark">
             <thead className="sticky-top">
@@ -30,6 +51,7 @@ export default function Category() {
                     <button
                       style={{ width: "100px" }}
                       type="button"
+                      onClick={() => handleEditClick(category.id)}
                       className="btn btn-sm btn-success me-3"
                     >
                       Edit
@@ -37,6 +59,7 @@ export default function Category() {
                     <button
                       style={{ width: "100px" }}
                       type="button"
+                      onClick={() => handleDeleteClick(category.id)}
                       className="btn btn-sm btn-danger"
                       data-mdb-toggle="modal"
                       data-mdb-target="#exampleModal"
@@ -79,6 +102,8 @@ export default function Category() {
               <button
                 style={{ width: "100px" }}
                 type="button"
+                onClick={() => deleteCategory(categoryId)}
+                data-mdb-dismiss="modal"
                 className="btn btn-success btn-sm"
               >
                 Yes
