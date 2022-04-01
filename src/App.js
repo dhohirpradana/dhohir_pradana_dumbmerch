@@ -15,6 +15,7 @@ import CategoryEdit from "./pages/CategoryEdit";
 import ProductEdit from "./pages/ProductEdit";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Complain from "./pages/Complain";
+import NotFound from "./pages/NotFound";
 
 function App() {
   let products = [
@@ -193,7 +194,7 @@ function App() {
     gender: "Male",
     address: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. Grobogan, Indonesia`,
     destinationAddress: [{ city: "Grobogan", cityId: 134 }],
-    role: 3,
+    role: 1,
   };
 
   // localStorage.setItem("products", JSON.stringify(products));
@@ -208,15 +209,20 @@ function App() {
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
           <Route element={<PrivateRoute user={user} />}>
-            <Route exact path="/" element={<Home />} />
+            <Route
+              exact
+              path="/"
+              element={user.role === 1 ? <Home /> : <Product />}
+            />
             <Route
               exact
               path="/product-detail/:id"
-              element={<ProductDetail />}
+              element={user.role === 1 ? <ProductDetail /> : <NotFound />}
             />
             <Route exact path="/buy/:id" element={<Buy />} />
             <Route exact path="/profile" element={<Profile />} />
             <Route exact path="/complain" element={<Complain />} />
+            <Route exact path="/not-found" element={<NotFound />} />
             <Route element={<ProtectedRoute user={user} />}>
               <Route exact path="/category" element={<Category />} />
               <Route exact path="/category-edit" element={<CategoryEdit />} />
