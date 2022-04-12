@@ -6,12 +6,17 @@
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.26.1",
+    "bootstrap": "^5.1.3",
     "mdb-react-ui-kit": "^3.0.0",
     "node-rajaongkir": "^1.1.0",
     "react": "^17.0.2",
+    "react-bootstrap": "^2.2.3",
     "react-dom": "^17.0.2",
+    "react-query": "^3.34.19",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
+    "socket.io-client": "^4.4.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

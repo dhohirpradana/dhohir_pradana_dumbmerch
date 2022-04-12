@@ -8,6 +8,7 @@ export default function MyTransaction(props) {
   var products = JSON.parse(localStorage.getItem("products"));
   var transaction = props.transaction;
   var product = products?.find((x) => x.id == transaction.id);
+
   var price = NumFormat(transaction.price, "Rp.");
   var subTotal = NumFormat(transaction.price * transaction.count, "Rp.");
   var date = DayDate(transaction.date);
@@ -23,7 +24,7 @@ export default function MyTransaction(props) {
           <div className="d-flex" style={{ width: "80%" }}>
             <div className="me-2">
               <img
-                style={{ height: "91px", width: "65px" }}
+                style={{ height: "100px", width: "70px" }}
                 src={product.src}
                 alt={transaction.id}
               ></img>

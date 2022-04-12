@@ -7,21 +7,67 @@ import { useParams } from "react-router-dom";
 import NumFormat from "../components/NumFormat";
 import NavBar from "../components/NavBar";
 import NotFound from "./NotFound";
+import { API } from "../config/api";
 
 export default function ProductDetail() {
   const params = useParams();
-  var user = JSON.parse(localStorage.getItem("user"));
-  var products = JSON.parse(localStorage.getItem("products"));
-  var product = products?.find((x) => x.id == params.id);
+  // var user = JSON.parse(localStorage.getItem("user"));
   var origin = 152;
-  var destination = user.destinationAddress[0].cityId;
 
-  const [total, setTotal] = useState(product.price);
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const response = await API.get("/product/32", config);
+      setProduct({ ...response.data.data.product });
+      setTotal(response.data.data.product.price);
+      setDestination(response.data.data.product.address.city);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const buyForm = useRef();
+  const [total, setTotal] = useState(0);
+  const [destination, setDestination] = useState(0);
   const [count, setCount] = useState(1);
   const [ekspedisi, setEkspedisi] = useState("");
   const [ongkir, setOngkir] = useState(0);
 
-  const buyForm = useRef(null);
+  async function getCost(courier, origin, destination) {
+    console.log(courier, origin, destination, product.weight);
+    try {
+      const response = await fetch(
+        `https://api-v1.dhohirpradana.com/cost/${courier}?destination=${destination}&origin=${origin}&weight=${product.weight}`,
+        {
+          method: "GET",
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`Error! status: ${response.status}`);
+      }
+      try {
+        const result = await response.json();
+        console.log(result);
+        return result.rajaongkir.results[0].costs[0].cost[0].value;
+      } catch (error) {
+        console.log
+        return 0;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   const handleOnChange = () => {
     const form = buyForm.current;
@@ -48,24 +94,6 @@ export default function ProductDetail() {
     }
   };
 
-  async function getCost(courier, origin, destination) {
-    try {
-      const response = await fetch(
-        `https://api-v1.dhohirpradana.com/cost/${courier}?destination=${destination}&origin=${origin}&weight=${product.weight}`,
-        {
-          method: "GET",
-        }
-      );
-      if (!response.ok) {
-        throw new Error(`Error! status: ${response.status}`);
-      }
-      const result = await response.json();
-      return result.rajaongkir.results[0].costs[0].cost[0].value ?? 0;
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
   return product ? (
     <div>
       <NavBar />
@@ -74,7 +102,7 @@ export default function ProductDetail() {
           {/* Left Side */}
           <div className="me-4">
             <img
-              src={product.src}
+              src={product.image}
               alt={product.id}
               style={{ height: "450px", width: "350px", objectFit: "cover" }}
             ></img>
@@ -84,7 +112,7 @@ export default function ProductDetail() {
           <div className="ms-3 text-light fw-light mt-4">
             <h3 className="primary-color-text">{product.name}</h3>
             <p>Stock : {product.qty}</p>
-            <p id="p_wrap">{product.description}</p>
+            <p id="p_wrap">{product.desc}</p>
             <div className="d-flex flex-row-reverse mb-4 mt-4">
               <h5 className="primary-color-text">
                 {NumFormat(product.price, "Rp.")}
@@ -186,7 +214,7 @@ export default function ProductDetail() {
       </div>
     </div>
   ) : (
-    <NotFound />
+    <div />
   );
 }
 

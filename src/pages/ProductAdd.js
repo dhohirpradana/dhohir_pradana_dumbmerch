@@ -1,12 +1,11 @@
 import React, { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useMutation } from "react-query";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { API } from "../config/api";
 
-export default function ProductEdit() {
-  const { state } = useLocation();
+export default function ProductAdd() {
   const form = useRef();
   const navigate = useNavigate();
 
@@ -27,7 +26,7 @@ export default function ProductEdit() {
         qty: form.current["qty"].value,
       });
 
-      const response = await API.put(`/product/${state.id}`, body, config);
+      const response = await API.post(`/product`, body, config);
 
       console.log(response);
       navigate("/product");
@@ -41,7 +40,7 @@ export default function ProductEdit() {
     <div>
       <NavBar page="product" />
       <div className="mx-5 pt-1">
-        <div className="fw-bold fs-4 text-light mt-4">Edit Product</div>
+        <div className="fw-bold fs-4 text-light mt-4">Add Product</div>
         <form ref={form} onSubmit={(e) => handleSubmit.mutate(e)}>
           <div className="mt-4 mb-5 edit">
             <Form.Control
@@ -49,7 +48,6 @@ export default function ProductEdit() {
               name="name"
               className="mb-4"
               placeholder="Name"
-              defaultValue={state.name}
             />
             <Form.Control
               as="textarea"
@@ -58,20 +56,17 @@ export default function ProductEdit() {
               name="desc"
               className="mb-4"
               placeholder="Description"
-              defaultValue={state.desc}
             />
             <Form.Control
               type="text"
               name="price"
               className="mb-4"
               placeholder="Price"
-              defaultValue={state.price}
             />
             <Form.Control
               type="text"
               name="qty"
               placeholder="Qty"
-              defaultValue={state.qty}
             />
           </div>
           <Button

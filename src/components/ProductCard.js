@@ -7,12 +7,12 @@ export default function ProductCard(props) {
   const navigate = useNavigate();
   return (
     <div
-      onClick={() => navigate("/product-detail/" + dataProduct.id)}
+      onClick={() => navigate("/product/" + dataProduct.id)}
       className="card text-white bg-dark m-2 p-0"
       style={{ width: "10.3rem" }}
     >
       <img
-        src={dataProduct.src}
+        src={dataProduct.image}
         className="card-img-top"
         alt="Sunset Over the Sea"
         style={{ height: "12rem" }}

@@ -1,10 +1,30 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import ProductCard from "../components/ProductCard";
+import { API } from "../config/api";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
-  useEffect(() => setProducts(JSON.parse(localStorage.getItem("products"))), []);
+  
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const response = await API.get("/products", config);
+      setProducts(response.data.data.products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <NavBar />

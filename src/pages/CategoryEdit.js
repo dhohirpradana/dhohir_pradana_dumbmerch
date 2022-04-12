@@ -4,7 +4,7 @@ import NavBar from "../components/NavBar";
 
 export default function CategoryEdit() {
   const { state } = useLocation();
-  const editForm = useRef(null);
+  const editForm = useRef();
   var categories = JSON.parse(localStorage.categories);
 
   const navigate = useNavigate();

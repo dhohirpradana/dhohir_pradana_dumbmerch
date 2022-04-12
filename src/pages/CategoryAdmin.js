@@ -2,64 +2,56 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
-import NumFormat from "../components/NumFormat";
 
-export default function Product() {
-  const [products, setProducts] = useState(
-    JSON.parse(localStorage.getItem("products"))
+export default function CategoryAdmin() {
+  const [categories, setCategories] = useState(
+    JSON.parse(localStorage.getItem("categories"))
   );
-  const [productsId, setproductsId] = useState("");
+  const [categoryId, setCategoryId] = useState("");
   const navigate = useNavigate();
 
   const handleDeleteClick = (id) => {
-    setproductsId(id);
+    setCategoryId(id);
   };
-
-  const deleteProduct = (id) => {
-    setProducts(products.filter((item) => item.id != id));
-  };
+  
+    const deleteCategory = (id) => {
+      setCategories(categories.filter((item) => item.id != id));
+    };
 
   const handleEditClick = (id) => {
-    navigate("/product-edit", {
-      state: products.filter((item) => item.id == id)[0],
+    navigate("/category-edit", {
+      state: categories.filter((item) => item.id == id)[0],
     });
   };
+
   return (
     <div>
-      <NavBar page="product" />
+      <NavBar page="category" />
       <div className="mx-5 pt-1">
-        <div className="fw-bold fs-4 text-light mb-3 mt-4">List Product</div>
+        <div className="fw-bold fs-4 text-light mb-3 mt-4">List Category</div>
         <div className="table-wrapper">
           <table className="table table-striped table-dark">
             <thead className="sticky-top">
               <tr>
-                <th scope="col" style={{ width: "50px" }}>
+                <th style={{ width: "15%" }} scope="col">
                   No
                 </th>
-                <th scope="col">Photo</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">Product Desc</th>
-                <th scope="col">Price</th>
-                <th scope="col">Qty</th>
-                <th scope="col" style={{ width: "300px" }}>
+                <th scope="col">Category Name</th>
+                <th style={{ width: "30%" }} scope="col">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              {products.map((product, index) => (
+              {categories.map((category, index) => (
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
-                  <th scope="row">{"product" + (index + 1) + ".jpg"}</th>
-                  <td id="td_no_wrap">{product.name}</td>
-                  <td id="td_no_wrap">{product.description}</td>
-                  <td>{NumFormat(product.price)}</td>
-                  <td>{product.qty}</td>
+                  <td>{category.name}</td>
                   <td>
                     <button
                       style={{ width: "100px" }}
                       type="button"
-                      onClick={() => handleEditClick(product.id)}
+                      onClick={() => handleEditClick(category.id)}
                       className="btn btn-sm btn-success me-3"
                     >
                       Edit
@@ -67,7 +59,7 @@ export default function Product() {
                     <button
                       style={{ width: "100px" }}
                       type="button"
-                      onClick={() => handleDeleteClick(product.id)}
+                      onClick={() => handleDeleteClick(category.id)}
                       className="btn btn-sm btn-danger"
                       data-mdb-toggle="modal"
                       data-mdb-target="#exampleModal"
@@ -110,9 +102,9 @@ export default function Product() {
               <button
                 style={{ width: "100px" }}
                 type="button"
-                className="btn btn-success btn-sm"
-                onClick={() => deleteProduct(productsId)}
+                onClick={() => deleteCategory(categoryId)}
                 data-mdb-dismiss="modal"
+                className="btn btn-success btn-sm"
               >
                 Yes
               </button>

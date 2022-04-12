@@ -1,6 +1,6 @@
 import React from "react";
-import { MDBBtn } from "mdb-react-ui-kit";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 export default function AuthLeft() {
   const location = useLocation().pathname;
@@ -46,20 +46,22 @@ export default function AuthLeft() {
         <span className="fw-bold">Indonesia</span>
       </div>
       <div>
-        <MDBBtn
+        <Button
+          variant="dark"
           onClick={() => navigate("/login")}
           className={button.login.class}
           style={button.login.style}
         >
           Login
-        </MDBBtn>
-        <MDBBtn
+        </Button>
+        <Button
+          variant="dark"
           onClick={() => navigate("/register")}
           className={button.register.class}
           style={button.register.style}
         >
           Register
-        </MDBBtn>
+        </Button>
       </div>
     </div>
   );

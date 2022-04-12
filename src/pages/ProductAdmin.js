@@ -1,76 +1,110 @@
 /* eslint-disable eqeqeq */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import NumFormat from "../components/NumFormat";
+import { API } from "../config/api";
 
-export default function Category() {
-  const [categories, setCategories] = useState(
-    JSON.parse(localStorage.getItem("categories"))
-  );
-  const [categoryId, setCategoryId] = useState("");
+export default function ProductAdmin() {
+  const [products, setProducts] = useState([]);
+  
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const response = await API.get("/products", config);
+      setProducts(response.data.data.products);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const [productsId, setproductsId] = useState(0);
   const navigate = useNavigate();
 
   const handleDeleteClick = (id) => {
-    setCategoryId(id);
+    setproductsId(id);
   };
-  
-    const deleteCategory = (id) => {
-      setCategories(categories.filter((item) => item.id != id));
-    };
+
+  const deleteProduct = (id) => {
+    setProducts(products.filter((item) => item.id != id));
+  };
 
   const handleEditClick = (id) => {
-    navigate("/category-edit", {
-      state: categories.filter((item) => item.id == id)[0],
+    navigate("/product-edit", {
+      state: products.filter((item) => item.id == id)[0],
     });
+  };
+
+  const handleAddProductClick = (id) => {
+    navigate("/product-add");
   };
 
   return (
     <div>
-      <NavBar page="category" />
+      <NavBar page="product" />
       <div className="mx-5 pt-1">
-        <div className="fw-bold fs-4 text-light mb-3 mt-4">List Category</div>
+        <div className="fw-bold fs-4 text-light mb-3 mt-4">List Product</div>
+        <Button variant="dark" className="mb-3 primary-color" onClick={handleAddProductClick}>Add Product</Button>
         <div className="table-wrapper">
-          <table className="table table-striped table-dark">
+          <Table striped bordered hover variant="dark">
             <thead className="sticky-top">
               <tr>
-                <th style={{ width: "15%" }} scope="col">
+                <th scope="col" style={{ width: "50px" }}>
                   No
                 </th>
-                <th scope="col">Category Name</th>
-                <th style={{ width: "30%" }} scope="col">
+                <th scope="col">Photo</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Product Desc</th>
+                <th scope="col">Price</th>
+                <th scope="col">Qty</th>
+                <th scope="col" style={{ width: "300px" }}>
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              {categories.map((category, index) => (
+              {products.map((product, index) => (
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
-                  <td>{category.name}</td>
+                  <th scope="row">{product.image.replace('http://localhost:5000/uploads/', '')}</th>
+                  <td id="td_no_wrap">{product.name}</td>
+                  <td id="td_no_wrap">{product.description}</td>
+                  <td>{NumFormat(product.price)}</td>
+                  <td>{product.qty}</td>
                   <td>
-                    <button
+                    <Button
                       style={{ width: "100px" }}
                       type="button"
-                      onClick={() => handleEditClick(category.id)}
+                      onClick={() => handleEditClick(product.id)}
                       className="btn btn-sm btn-success me-3"
                     >
                       Edit
-                    </button>
-                    <button
+                    </Button>
+                    <Button
                       style={{ width: "100px" }}
                       type="button"
-                      onClick={() => handleDeleteClick(category.id)}
+                      onClick={() => handleDeleteClick(product.id)}
                       className="btn btn-sm btn-danger"
                       data-mdb-toggle="modal"
                       data-mdb-target="#exampleModal"
                     >
                       Delete
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               ))}
             </tbody>
-          </table>
+          </Table>
         </div>
       </div>
 
@@ -102,9 +136,9 @@ export default function Category() {
               <button
                 style={{ width: "100px" }}
                 type="button"
-                onClick={() => deleteCategory(categoryId)}
-                data-mdb-dismiss="modal"
                 className="btn btn-success btn-sm"
+                onClick={() => deleteProduct(productsId)}
+                data-mdb-dismiss="modal"
               >
                 Yes
               </button>
