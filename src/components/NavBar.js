@@ -1,10 +1,23 @@
 /* eslint-disable eqeqeq */
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Nav } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../context/user";
 
 export default function NavBar(props) {
-  var user = JSON.parse(localStorage.getItem("user"));
+  // eslint-disable-next-line no-unused-vars
+  const [state, dispatch] = useContext(UserContext);
+  const user = state.user;
   var page = props.page;
+
+  let navigate = useNavigate();
+
+  const logout = () => {
+    dispatch({
+      type: "LOGOUT",
+    });
+    navigate("/login");
+  };
 
   var li = [
     <li key="complain" className="nav-item">
@@ -17,14 +30,18 @@ export default function NavBar(props) {
         Profile
       </Link>
     </li>,
-    <li key="login" className="nav-item">
-      <Link className="nav-link active" aria-current="page" to="/login">
+    <li key="logout" className="nav-item">
+      <Nav.Link
+        className="nav-link active"
+        aria-current="page"
+        onClick={logout}
+      >
         Logout
-      </Link>
+      </Nav.Link>
     </li>,
   ];
 
-  if (user.role == 3) {
+  if (user.role && user.role.id > 1) {
     li = [
       <li key="complain" className="nav-item">
         <Link className="nav-link active" aria-current="page" to="/complain">
@@ -32,20 +49,28 @@ export default function NavBar(props) {
         </Link>
       </li>,
       <li key="category" className="nav-item">
-        <Link className="nav-link active" aria-current="page" to="/category">
+        <Link
+          className="nav-link active"
+          aria-current="page"
+          to="/category-admin"
+        >
           Category
         </Link>
       </li>,
       <li key="product" className="nav-item">
-        <Link className="nav-link active" aria-current="page" to="/product">
+        <Link className="nav-link active" aria-current="page" to="/product-admin">
           Product
         </Link>
       </li>,
-      <li key="login" className="nav-item">
-        <Link className="nav-link active" aria-current="page" to="/login">
-          Logout
-        </Link>
-      </li>,
+      <li key="logout" className="nav-item">
+      <Nav.Link
+        className="nav-link active"
+        aria-current="page"
+        onClick={logout}
+      >
+        Logout
+      </Nav.Link>
+    </li>,
     ];
   }
 

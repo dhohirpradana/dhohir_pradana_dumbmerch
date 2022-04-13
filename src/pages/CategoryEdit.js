@@ -1,50 +1,68 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { Alert, Button, Form } from "react-bootstrap";
+import { useMutation } from "react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import { API } from "../config/api";
 
 export default function CategoryEdit() {
   const { state } = useLocation();
-  const editForm = useRef();
-  var categories = JSON.parse(localStorage.categories);
-
+  const form = useRef();
+  const [message, setMessage] = useState();
   const navigate = useNavigate();
 
-  const handleSave = () => {
-    const form = editForm.current;
-    for (var i = 0; i < categories.length; i++) {
-      if (state.id === categories[i].id) {
-        categories[i].name = form["name"].value;
-        break;
-      }
+  const handleSubmit = useMutation(async (e) => {
+    try {
+      e.preventDefault();
+
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const body = JSON.stringify({
+        name: form.current.name.value,
+      });
+
+      const response = await API.patch(`/category/${state.id}`, body, config);
+
+      console.log(response);
+      navigate("/category-admin");
+    } catch (error) {
+      const msg = error.response.data.error.message;
+      const alert = (
+        <Alert variant="danger" className="py-1 text-start">
+          {msg}
+        </Alert>
+      );
+      setMessage(alert);
     }
-    localStorage.setItem("categories", JSON.stringify(categories));
-    navigate("/category");
-  };
+  });
 
   return (
     <div>
       <NavBar page="category" />
-      <div className="mx-5 pt-1">
-        <div className="fw-bold fs-4 text-light mt-4">Edit Category</div>
-        <form ref={editForm}>
+      <div className="mx-5 pt-1 mb-2">
+        <div className="fw-bold fs-4 text-light mb-2">Edit Category</div>
+        {message}
+        <form ref={form} onSubmit={(e) => handleSubmit.mutate(e)}>
           <div className="mt-4 edit">
-            <input
+            <Form.Control
               type="text"
               name="name"
-              className="form-control"
               placeholder="Name"
               defaultValue={state.name}
             />
           </div>
           <div className="mt-5">
-            <button
+            <Button
+              type="submit"
               style={{ width: "100%" }}
-              type="button"
-              onClick={handleSave}
-              className="btn btn-success text-capitalize"
+              className="btn-success text-capitalize"
             >
               Save
-            </button>
+            </Button>
           </div>
         </form>
       </div>

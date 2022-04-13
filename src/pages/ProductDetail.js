@@ -8,10 +8,10 @@ import NumFormat from "../components/NumFormat";
 import NavBar from "../components/NavBar";
 import NotFound from "./NotFound";
 import { API } from "../config/api";
+import { Button, Form } from "react-bootstrap";
 
 export default function ProductDetail() {
   const params = useParams();
-  // var user = JSON.parse(localStorage.getItem("user"));
   var origin = 152;
 
   const [product, setProduct] = useState(null);
@@ -28,7 +28,7 @@ export default function ProductDetail() {
         },
       };
 
-      const response = await API.get("/product/32", config);
+      const response = await API.get("/product/" + params.id, config);
       setProduct({ ...response.data.data.product });
       setTotal(response.data.data.product.price);
       setDestination(response.data.data.product.address.city);
@@ -61,7 +61,7 @@ export default function ProductDetail() {
         console.log(result);
         return result.rajaongkir.results[0].costs[0].cost[0].value;
       } catch (error) {
-        console.log
+        console.log;
         return 0;
       }
     } catch (err) {
@@ -118,16 +118,14 @@ export default function ProductDetail() {
                 {NumFormat(product.price, "Rp.")}
               </h5>
             </div>
-            <button
-              type="button"
-              // onClick={handleBuy}
+            <Button
               data-mdb-toggle="modal"
               data-mdb-target="#modalBuy"
-              className="btn primary-color text-capitalize text-light"
+              className="primary-color text-capitalize text-light mb-4"
               style={{ width: "100%" }}
             >
               Buy
-            </button>
+            </Button>
           </div>
         </div>
       </div>
@@ -159,11 +157,11 @@ export default function ProductDetail() {
             <div className="modal-body bg-dark mx-3">
               <div className="text-light mb-4 fs-4">{product.name}</div>
               <form ref={buyForm}>
-                <input
+                <Form.Control
                   onChange={handleOnChange}
                   min={1}
                   type="number"
-                  className="form-control mb-3 bg-dark text-light"
+                  className="mb-3 bg-dark text-light"
                   name="count"
                   defaultValue={count}
                   placeholder="jumlah"
@@ -195,7 +193,6 @@ export default function ProductDetail() {
                 </div>
                 <hr></hr>
                 <div className="text-light mt-4">
-                  <span></span>
                   <span className="ms-1 fs-4">{NumFormat(total, "Rp.")}</span>
                 </div>
               </form>

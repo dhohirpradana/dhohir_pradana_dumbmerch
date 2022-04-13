@@ -1,14 +1,17 @@
+/* eslint-disable no-unused-vars */
 import { MDBCard } from "mdb-react-ui-kit";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useMutation } from "react-query";
 import { API } from "../config/api";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/user";
 
 export default function LoginCard() {
   const navigate = useNavigate();
   const form = useRef();
   const [message, setMessage] = useState();
+  const [state, dispatch] = useContext(UserContext);
 
   const handleSubmit = useMutation(async (e) => {
     setMessage(null);
@@ -23,15 +26,23 @@ export default function LoginCard() {
 
       const body = JSON.stringify({
         email: form.current["email"].value,
-        password: form.current["password"].value
+        password: form.current["password"].value,
       });
 
       const response = await API.post("/login", body, config);
       const user = response.data.data;
-      if (user.role.name === "customer") {
-        navigate("/");
-      } else {
-        navigate("/product-admin");
+
+      if (response.status === 200) {
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: user,
+        });
+        
+        if (user.role.name === "customer") {
+          navigate("/");
+        } else {
+          navigate("/product-admin");
+        }
       }
     } catch (error) {
       const msg = error.response.data.error.message;

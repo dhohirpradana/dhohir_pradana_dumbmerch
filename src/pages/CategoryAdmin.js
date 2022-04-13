@@ -1,22 +1,41 @@
 /* eslint-disable eqeqeq */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../components/NavBar";
+import { API } from "../config/api";
 
 export default function CategoryAdmin() {
-  const [categories, setCategories] = useState(
-    JSON.parse(localStorage.getItem("categories"))
-  );
+  const [categories, setCategories] = useState([]);
   const [categoryId, setCategoryId] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const response = await API.get("/categories", config);
+      setCategories(response.data.data.categories);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleDeleteClick = (id) => {
     setCategoryId(id);
   };
-  
-    const deleteCategory = (id) => {
-      setCategories(categories.filter((item) => item.id != id));
-    };
+
+  const deleteCategory = (id) => {
+    setCategories(categories.filter((item) => item.id != id));
+  };
 
   const handleEditClick = (id) => {
     navigate("/category-edit", {
@@ -30,7 +49,7 @@ export default function CategoryAdmin() {
       <div className="mx-5 pt-1">
         <div className="fw-bold fs-4 text-light mb-3 mt-4">List Category</div>
         <div className="table-wrapper">
-          <table className="table table-striped table-dark">
+          <Table striped bordered hover variant="dark">
             <thead className="sticky-top">
               <tr>
                 <th style={{ width: "15%" }} scope="col">
@@ -48,29 +67,27 @@ export default function CategoryAdmin() {
                   <th scope="row">{index + 1}</th>
                   <td>{category.name}</td>
                   <td>
-                    <button
+                    <Button
                       style={{ width: "100px" }}
-                      type="button"
                       onClick={() => handleEditClick(category.id)}
-                      className="btn btn-sm btn-success me-3"
+                      className="btn-sm btn-success me-3"
                     >
                       Edit
-                    </button>
-                    <button
+                    </Button>
+                    <Button
                       style={{ width: "100px" }}
-                      type="button"
                       onClick={() => handleDeleteClick(category.id)}
-                      className="btn btn-sm btn-danger"
+                      className="btn-sm btn-danger"
                       data-mdb-toggle="modal"
                       data-mdb-target="#exampleModal"
                     >
                       Delete
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               ))}
             </tbody>
-          </table>
+          </Table>
         </div>
       </div>
 
@@ -88,34 +105,33 @@ export default function CategoryAdmin() {
               <h5 className="modal-title" id="exampleModalLabel">
                 Delete Data
               </h5>
-              <button
-                type="button"
+              <Button
                 className="btn-close"
                 data-mdb-dismiss="modal"
                 aria-label="Close"
-              ></button>
+              />
             </div>
             <div className="modal-body">
               Are you sure you want to delete this data?
             </div>
             <div className="modal-footer">
-              <button
+              <Button
                 style={{ width: "100px" }}
-                type="button"
                 onClick={() => deleteCategory(categoryId)}
                 data-mdb-dismiss="modal"
-                className="btn btn-success btn-sm"
+                variant="success"
+                size="sm"
               >
                 Yes
-              </button>
-              <button
+              </Button>
+              <Button
                 style={{ width: "100px" }}
-                type="button"
-                className="btn btn-danger btn-sm"
+                variant="danger"
+                size="sm"
                 data-mdb-dismiss="modal"
               >
                 No
-              </button>
+              </Button>
             </div>
           </div>
         </div>

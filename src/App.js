@@ -2,10 +2,9 @@
 import "./App.css";
 import "./styles/Style.css";
 import Login from "./pages/Login";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
-import PrivateRoute from "./components/PrivateRoute";
 import ProductDetail from "./pages/ProductDetail";
 import Buy from "./components/Buy";
 import Profile from "./pages/Profile";
@@ -13,118 +12,88 @@ import CategoryAdmin from "./pages/CategoryAdmin";
 import ProductAdmin from "./pages/ProductAdmin";
 import CategoryEdit from "./pages/CategoryEdit";
 import ProductEdit from "./pages/ProductEdit";
-import ProtectedRoute from "./components/ProtectedRoute";
 import Complain from "./pages/Complain";
 import NotFound from "./pages/NotFound";
 import ProductAdd from "./pages/ProductAdd";
+import { useContext, useEffect } from "react";
+import { UserContext } from "./context/user";
+import { API, setAuthToken } from "./config/api";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 function App() {
-  let products = [
-    {
-      id: 1,
-      name: "Mouse",
-      src: "https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp",
-      price: 500000,
-      weight: 1000,
-      description: `- Wireless Mouse
-      - Konektivitas wireless 2.4 GHz
-      - Jarak wireless hingga 10 m
-      - Plug and Play
-      - Baterai tahan hingga 12 bulan
-      
-      Mouse Wireless Alytech AL - Y5D, hadir dengan desain 3 tombol mouse yang ringan dan mudah dibawa. Mouse ini menggunakan frekuensi radio 2.4GHz (bekerja hingga jarak 10m) dan fitur sensor canggih optik pelacakan dengan penerima USB yang kecil. Mouse ini didukung oleh 1x baterai AA (hingga 12 bulan hidup baterai). mendukung sistem operasi Windows 7,8, 10 keatas, Mac OS X 10.8 atau yang lebih baru dan sistem operasi Chrome OS.`,
-      qty: 600,
-    },
-    {
-      id: 2,
-      name: "Keyboard",
-      src: "https://images.unsplash.com/photo-1648558846349-5ea5618bb118?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      price: 700000,
-      weight: 1000,
-      description: `- Wireless Mouse
-      - Konektivitas wireless 2.4 GHz
-      - Jarak wireless hingga 10 m
-      - Plug and Play
-      - Baterai tahan hingga 12 bulan
-      
-      Mouse Wireless Alytech AL - Y5D, hadir dengan desain 3 tombol mouse yang ringan dan mudah dibawa. Mouse ini menggunakan frekuensi radio 2.4GHz (bekerja hingga jarak 10m) dan fitur sensor canggih optik pelacakan dengan penerima USB yang kecil. Mouse ini didukung oleh 1x baterai AA (hingga 12 bulan hidup baterai). mendukung sistem operasi Windows 7,8, 10 keatas, Mac OS X 10.8 atau yang lebih baru dan sistem operasi Chrome OS.`,
-      qty: 600,
-    },
-  ];
+  let navigate = useNavigate();
+  const [state, dispatch] = useContext(UserContext);
 
-  let transactions = [
-    {
-      id: 1,
-      date: "Wed Mar 30 2022 13:08:48 GMT+0700 (Waktu Indonesia Barat)",
-      price: 500000,
-      count: 1,
-      discount: 0,
-      user_id: 1,
-    },
-    {
-      id: 2,
-      date: "Wed Mar 30 2022 13:08:48 GMT+0700 (Waktu Indonesia Barat)",
-      price: 600000,
-      count: 2,
-      discount: 0,
-      user_id: 1,
-    },
-  ];
+  useEffect(() => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
 
-  const categories = [
-    { id: 1, name: "Mouse" },
-    { id: 2, name: "Keyboard" },
-    { id: 3, name: "Monitor" },
-    { id: 4, name: "HDD" },
-    { id: 5, name: "HDD" },
-    { id: 6, name: "HDD" },
-    { id: 7, name: "HDD" },
-    { id: 8, name: "HDD" },
-  ];
+    if (state.isLogin === false) {
+      navigate("/login");
+    } else {
+      if (
+        state.user.role.name === "admin" ||
+        state.user.role.name === "super admin" ||
+        state.user.role.name === "seller"
+      ) {
+        navigate("/product-admin");
+      } else if (state.user.role.name === "customer") {
+        navigate("/");
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
 
-  const user = {
-    // id: 1,
-    // name: "Dhohir Pradana",
-    // email: "contact@dhohirpradana.com",
-    // phone: "081335343635",
-    // gender: "Male",
-    // address: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. Grobogan, Indonesia`,
-    // destinationAddress: [{ city: "Grobogan", cityId: 134 }],
-    // role: 3,
+  const checkUser = async () => {
+    try {
+      const response = await API.get("/me");
+
+      if (response.status === 404) {
+        return dispatch({
+          type: "AUTH_ERROR",
+        });
+      }
+
+      let payload = response.data.data.user;
+      payload.token = localStorage.token;
+
+      dispatch({
+        type: "AUTH_SUCCESS",
+        payload,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  // localStorage.setItem("products", JSON.stringify(products));
-  // localStorage.setItem("transactions", JSON.stringify(transactions));
-  // localStorage.setItem("categories", JSON.stringify(categories));
-  localStorage.setItem("user", JSON.stringify(user));
+  useEffect(() => {
+    if (localStorage.token) {
+      checkUser();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
-      <Router>
-        <Routes>
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/register" element={<Register />} />
-          <Route element={<PrivateRoute user={user} />}>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/product/:id" element={<ProductDetail />} />
-            <Route exact path="/profile" element={<Profile />} />
-            <Route exact path="/buy/:id" element={<Buy />} />
-            <Route exact path="/complain" element={<Complain />} />
-            {/* <Route element={<ProtectedRoute user={user} />}> */}
-            <Route
-              exact
-              path="/admin/category-admin"
-              element={<CategoryAdmin />}
-            />
-            <Route exact path="/category-edit" element={<CategoryEdit />} />
-            <Route exact path="/product-admin" element={<ProductAdmin />} />
-            <Route exact path="/product-add" element={<ProductAdd />} />
-            <Route exact path="/product-edit" element={<ProductEdit />} />
-            <Route exact path="/not-found" element={<NotFound />} />
-            {/* </Route> */}
-          </Route>
-        </Routes>
-      </Router>
+      <Routes>
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/product/:id" element={<ProductDetail />} />
+        <Route exact path="/profile" element={<Profile />} />
+        <Route exact path="/buy/:id" element={<Buy />} />
+        <Route exact path="/complain" element={<Complain />} />
+        <Route exact path="/category-admin" element={<CategoryAdmin />} />
+        <Route exact path="/category-edit" element={<CategoryEdit />} />
+        <Route exact path="/product-admin" element={<ProductAdmin />} />
+        <Route exact path="/product-add" element={<ProductAdd />} />
+        <Route exact path="/product-edit" element={<ProductEdit />} />
+        <Route exact path="/not-found" element={<NotFound />} />
+      </Routes>
     </>
   );
 }
