@@ -5,13 +5,11 @@ import DayDate from "./DayDate";
 import NumFormat from "./NumFormat";
 
 export default function MyTransaction(props) {
-  var products = JSON.parse(localStorage.getItem("products"));
   var transaction = props.transaction;
-  var product = products?.find((x) => x.id == transaction.id);
-
+  var product = transaction.product;
   var price = NumFormat(transaction.price, "Rp.");
-  var subTotal = NumFormat(transaction.price * transaction.count, "Rp.");
-  var date = DayDate(transaction.date);
+  var subTotal = NumFormat(transaction.price, "Rp.");
+  var date = DayDate(transaction.createdAt);
   return (
     <div>
       <MDBCard
@@ -25,7 +23,7 @@ export default function MyTransaction(props) {
             <div className="me-2">
               <img
                 style={{ height: "100px", width: "70px" }}
-                src={product.src}
+                src={product.image}
                 alt={transaction.id}
               ></img>
             </div>
@@ -65,11 +63,7 @@ export default function MyTransaction(props) {
             className="d-flex flex-row-reverse align-items-center"
             style={{ width: "20%" }}
           >
-            <img
-              src="/sumbmerch.png"
-              alt="app-logo"
-              style={{ height: "50px" }}
-            />
+            {transaction.paymentStatus}
           </div>
         </MDBCardBody>
       </MDBCard>

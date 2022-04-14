@@ -44,7 +44,7 @@ export default function NavBar(props) {
   if (user.role && user.role.id > 1) {
     li = [
       <li key="complain" className="nav-item">
-        <Link className="nav-link active" aria-current="page" to="/complain">
+        <Link className="nav-link active" aria-current="page" to="/complain-admin">
           Complain
         </Link>
       </li>,
@@ -58,19 +58,23 @@ export default function NavBar(props) {
         </Link>
       </li>,
       <li key="product" className="nav-item">
-        <Link className="nav-link active" aria-current="page" to="/product-admin">
+        <Link
+          className="nav-link active"
+          aria-current="page"
+          to="/product-admin"
+        >
           Product
         </Link>
       </li>,
       <li key="logout" className="nav-item">
-      <Nav.Link
-        className="nav-link active"
-        aria-current="page"
-        onClick={logout}
-      >
-        Logout
-      </Nav.Link>
-    </li>,
+        <Nav.Link
+          className="nav-link active"
+          aria-current="page"
+          onClick={logout}
+        >
+          Logout
+        </Nav.Link>
+      </li>,
     ];
   }
 
@@ -104,11 +108,13 @@ export default function NavBar(props) {
           <div className="collapse navbar-collapse" id="navbarLeftAlign">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <img
-                  src="/sumbmerch.png"
-                  alt="app-logo"
-                  style={{ height: "50px" }}
-                />
+                <Link to={"/"}>
+                  <img
+                    src="/sumbmerch.png"
+                    alt="app-logo"
+                    style={{ height: "50px" }}
+                  />
+                </Link>
               </li>
             </ul>
           </div>

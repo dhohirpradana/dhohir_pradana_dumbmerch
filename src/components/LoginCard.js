@@ -37,7 +37,7 @@ export default function LoginCard() {
           type: "LOGIN_SUCCESS",
           payload: user,
         });
-        
+
         if (user.role.name === "customer") {
           navigate("/");
         } else {
@@ -45,13 +45,14 @@ export default function LoginCard() {
         }
       }
     } catch (error) {
-      const msg = error.response.data.error.message;
-      const alert = (
-        <Alert variant="danger" className="py-1 text-start">
-          {msg}
-        </Alert>
-      );
-      setMessage(alert);
+      // const msg = error.response.data.error.message;
+      console.log(error.response);
+      // const alert = (
+      //   <Alert variant="danger" className="py-1 text-start">
+      //     {msg}
+      //   </Alert>
+      // );
+      // setMessage(alert);
     }
   });
 

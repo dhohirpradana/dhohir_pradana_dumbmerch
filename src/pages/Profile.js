@@ -3,17 +3,18 @@ import { useContext, useEffect, useState } from "react";
 import MyTransaction from "../components/MyTransaction";
 import NavBar from "../components/NavBar";
 import { API } from "../config/api";
-import { UserContext } from "../context/user";
+import { ProfileContext } from "../context/profile";
 
 export default function Profile() {
+  const [state, dispatch] = useContext(ProfileContext);
   const [user, setUser] = useState();
-  console.log(user);
   const [transactions, setTransactions] = useState([]);
   const [shippingAddress, setShippingAddress] = useState();
+
   useEffect(() => {
     fetchMe();
-    fetchShippingAddress();
-    fetchTransactions();
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchMe = async () => {
@@ -24,8 +25,10 @@ export default function Profile() {
         },
       };
       const response = await API.get("/me", config);
-      console.log(response);
+      // console.log(response);
       setUser(response.data.data.user);
+      fetchShippingAddress();
+      fetchTransactions();
     } catch (error) {
       console.log(error);
     }
@@ -39,7 +42,7 @@ export default function Profile() {
         },
       };
       const response = await API.get("/shipping-address", config);
-      console.log(response);
+      // console.log(response);
       setShippingAddress(response.data.data.address);
     } catch (error) {
       console.log(error);
@@ -54,7 +57,6 @@ export default function Profile() {
         },
       };
       const response = await API.get("/purchases", config);
-      console.log(response);
       setTransactions(response.data.data.transactions);
     } catch (error) {
       console.log(error);
@@ -88,15 +90,15 @@ export default function Profile() {
               </div>
               <div className="mb-3">
                 <div className="primary-color-text">Phone</div>
-                <div>{user?.profiles[0].phone}</div>
+                <div>{user?.profiles[state?.selected].phone ?? "-"}</div>
               </div>
               <div className="mb-3">
                 <div className="primary-color-text">Gender</div>
-                <div>{user?.profiles[0].gender.name}</div>
+                <div>{user?.profiles[state?.selected].gender.name ?? "-"}</div>
               </div>
               <div>
                 <div className="primary-color-text">Address</div>
-                <div id="p_wrap">{shippingAddress?.detail}</div>
+                <div id="p_wrap">{shippingAddress?.detail ?? "-"}</div>
               </div>
             </div>
           </div>
@@ -106,9 +108,11 @@ export default function Profile() {
           <div className="fw-bold fs-4 primary-color-text mb-4">
             My Transaction
           </div>
-          {transactions.map((transaction, index) => (
-            <MyTransaction key={index} transaction={transaction} />
-          ))}
+          <div style={{ height: "76vh", overflow: "scroll" }}>
+            {transactions.map((transaction, index) => (
+              <MyTransaction key={index} transaction={transaction} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

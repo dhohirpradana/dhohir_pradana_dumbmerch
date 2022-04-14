@@ -1,23 +1,39 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-/* eslint-disable eqeqeq */
-/* eslint-disable no-unused-expressions */
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useMutation } from "react-query";
+import { useParams, useNavigate } from "react-router-dom";
 import NumFormat from "../components/NumFormat";
 import NavBar from "../components/NavBar";
-import NotFound from "./NotFound";
 import { API } from "../config/api";
 import { Button, Form } from "react-bootstrap";
 
 export default function ProductDetail() {
   const params = useParams();
+  let navigate = useNavigate();
+  const form = useRef();
+  const [total, setTotal] = useState(0);
+  const [destination, setDestination] = useState(0);
+  const [count, setCount] = useState(1);
+  // eslint-disable-next-line no-unused-vars
+  const [ekspedisi, setEkspedisi] = useState("");
+  const [ongkir, setOngkir] = useState(0);
   var origin = 152;
 
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     fetchProducts();
+    const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+    const myMidtransClientKey = process.env.MIDTRANS_CLIENT_KEY;
+
+    let scriptTag = document.createElement("script");
+    scriptTag.src = midtransScriptUrl;
+    scriptTag.setAttribute("data-client-key", myMidtransClientKey);
+
+    document.body.appendChild(scriptTag);
+    return () => {
+      document.body.removeChild(scriptTag);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchProducts = async () => {
@@ -37,62 +53,96 @@ export default function ProductDetail() {
     }
   };
 
-  const buyForm = useRef();
-  const [total, setTotal] = useState(0);
-  const [destination, setDestination] = useState(0);
-  const [count, setCount] = useState(1);
-  const [ekspedisi, setEkspedisi] = useState("");
-  const [ongkir, setOngkir] = useState(0);
-
   async function getCost(courier, origin, destination) {
     console.log(courier, origin, destination, product.weight);
     try {
-      const response = await fetch(
-        `https://api-v1.dhohirpradana.com/cost/${courier}?destination=${destination}&origin=${origin}&weight=${product.weight}`,
-        {
-          method: "GET",
-        }
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const response = await API.get(
+        `cost/${courier}?destination=${destination}&origin=${origin}&weight=${product.weight}`,
+        config
       );
-      if (!response.ok) {
-        throw new Error(`Error! status: ${response.status}`);
-      }
-      try {
-        const result = await response.json();
-        console.log(result);
-        return result.rajaongkir.results[0].costs[0].cost[0].value;
-      } catch (error) {
-        console.log;
-        return 0;
-      }
+      console.log(response.data.rajaongkir.results[0].costs[0].cost[0].value);
+      return response.data.rajaongkir.results[0].costs[0].cost[0].value;
     } catch (err) {
       console.log(err);
     }
   }
 
   const handleOnChange = () => {
-    const form = buyForm.current;
-    setCount(form.count.value == "" ? 0 : form.count.value);
-    if (form.count.value != "" && form.count.value != 0) {
-      setTotal(form.count.value * product.price + ongkir);
+    let buyForm = form.current;
+    setCount(buyForm.count.value === "" ? 0 : buyForm.count.value);
+    if (buyForm.count.value !== "" && buyForm.count.value !== 0) {
+      setTotal(buyForm.count.value * product.price + ongkir);
     } else {
       setTotal(0);
     }
   };
 
   const handleOnChangeCourier = () => {
+    let buyForm = form.current;
     setEkspedisi("");
-    const form = buyForm.current;
-    if (form.ekspedisi.value != "") {
-      getCost(form.ekspedisi.value, origin, destination).then((res) => {
+    if (buyForm.ekspedisi.value !== "") {
+      getCost(buyForm.ekspedisi.value, origin, destination).then((res) => {
         setOngkir(res);
-        setTotal(form.count.value * product.price + res);
-        setEkspedisi(form.ekspedisi.value);
+        setTotal(buyForm.count.value * product.price + res);
+        setEkspedisi(buyForm.ekspedisi.value);
       });
     } else {
       setOngkir(0);
-      setTotal(form.count.value * product.price);
+      setTotal(buyForm.count.value * product.price);
     }
   };
+
+  const handleConfirmBuy = useMutation(async () => {
+    console.log("buy");
+    try {
+      const data = {
+        idProduct: product.id,
+        idSeller: product.idUser,
+        qty: count,
+        price: total,
+      };
+
+      const body = JSON.stringify(data);
+
+      const config = {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      await API.post("/transaction", body, config)
+        .then((response) => {
+          const token = response.data.payment.token;
+          window.snap.pay(token, {
+            onSuccess: function (result) {
+              console.log(result);
+              navigate("/profile");
+            },
+            onPending: function (result) {
+              console.log(result);
+              navigate("/profile");
+            },
+            onError: function (result) {
+              console.log(result);
+            },
+            onClose: function () {
+              alert("you closed the popup without finishing the payment");
+            },
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
   return product ? (
     <div>
@@ -145,18 +195,17 @@ export default function ProductDetail() {
               <h4 className="modal-title w-100 font-weight-bold text-light">
                 Buy
               </h4>
-              <button
-                type="button"
+              <Button
                 className="close text-light"
                 data-mdb-dismiss="modal"
                 aria-label="Close"
               >
                 <span aria-hidden="true">&times;</span>
-              </button>
+              </Button>
             </div>
             <div className="modal-body bg-dark mx-3">
               <div className="text-light mb-4 fs-4">{product.name}</div>
-              <form ref={buyForm}>
+              <form ref={form}>
                 <Form.Control
                   onChange={handleOnChange}
                   min={1}
@@ -198,13 +247,15 @@ export default function ProductDetail() {
               </form>
             </div>
             <div className="modal-footer d-flex justify-content-center">
-              <button
-                disabled={ekspedisi == ""}
+              <Button
+                data-mdb-dismiss="modal"
+                // disabled={ekspedisi === ""}
+                onClick={() => handleConfirmBuy.mutate()}
                 className="btn btn-indigo primary-color text-light text-capitalize"
                 style={{ width: "100%" }}
               >
                 Checkout <i className="fas fa-paper-plane-o ml-1"></i>
-              </button>
+              </Button>
             </div>
           </div>
         </div>

@@ -1,6 +1,4 @@
-// import hook
 import React, { useContext, useEffect, useState } from "react";
-
 import { Container, Row, Col } from "react-bootstrap";
 
 import NavBar from "../components/NavBar";
@@ -12,7 +10,7 @@ import { UserContext } from "../context/user";
 import { io } from "socket.io-client";
 
 let socket;
-export default function Complain() {
+export default function ComplainAdmin() {
   const [contact, setContact] = useState();
   const [contacts, setContacts] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -47,13 +45,13 @@ export default function Complain() {
   }, [messages]);
 
   const loadContacts = () => {
-    socket.emit("load admin contact");
-    socket.on("admin contact", (data) => {
-      const dataContact = data?.map((item) => ({
+    socket.emit("load customer contacts");
+    socket.on("customer contacts", (data) => {
+      let dataContacts = data.map((item) => ({
         ...item,
         message: "Click here to start message",
       }));
-      setContacts(dataContact);
+      setContacts(dataContacts);
     });
   };
 
@@ -72,7 +70,7 @@ export default function Complain() {
         }));
         setMessages(dataMessages);
       } else {
-        setMessages([messages]);
+        setMessages([]);
       }
     });
   };
@@ -83,6 +81,7 @@ export default function Complain() {
         idRecipient: contact,
         message: e.target.value,
       };
+
       socket.emit("send message", data);
       e.target.value = "";
     }
@@ -99,8 +98,8 @@ export default function Complain() {
             className="px-3 border-end border-light overflow-auto"
           >
             <Contact
-              clickContact={onClickContact}
               dataContact={contacts}
+              clickContact={onClickContact}
               contact={contact}
             />
           </Col>

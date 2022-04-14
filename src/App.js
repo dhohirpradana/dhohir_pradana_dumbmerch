@@ -18,6 +18,7 @@ import ProductAdd from "./pages/ProductAdd";
 import { useContext, useEffect } from "react";
 import { UserContext } from "./context/user";
 import { API, setAuthToken } from "./config/api";
+import ComplainAdmin from "./pages/ComplainAdmin";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -42,7 +43,7 @@ function App() {
       ) {
         navigate("/product-admin");
       } else if (state.user.role.name === "customer") {
-        navigate("/");
+        navigate("/profile");
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,6 +88,7 @@ function App() {
         <Route exact path="/profile" element={<Profile />} />
         <Route exact path="/buy/:id" element={<Buy />} />
         <Route exact path="/complain" element={<Complain />} />
+        <Route exact path="/complain-admin" element={<ComplainAdmin />} />
         <Route exact path="/category-admin" element={<CategoryAdmin />} />
         <Route exact path="/category-edit" element={<CategoryEdit />} />
         <Route exact path="/product-admin" element={<ProductAdmin />} />

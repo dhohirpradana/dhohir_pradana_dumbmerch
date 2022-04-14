@@ -13,6 +13,10 @@ export default function ProductAdmin() {
 
   useEffect(() => {
     fetchProducts();
+
+    return () => {
+      // console.log("cleaned up");
+    };
   }, []);
 
   const fetchProducts = async () => {
@@ -34,8 +38,19 @@ export default function ProductAdmin() {
     setproductsId(id);
   };
 
-  const deleteProduct = (id) => {
-    setProducts(products.filter((item) => item.id != id));
+  const deleteProduct = async (id) => {
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    try {
+      await API.delete("/product/" + id, config).then(() =>
+        setProducts(products.filter((item) => item.id != id))
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleEditClick = (id) => {
