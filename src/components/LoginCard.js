@@ -45,14 +45,14 @@ export default function LoginCard() {
         }
       }
     } catch (error) {
-      // const msg = error.response.data.error.message;
+      const msg = error.response.data.error.message;
       console.log(error.response);
-      // const alert = (
-      //   <Alert variant="danger" className="py-1 text-start">
-      //     {msg}
-      //   </Alert>
-      // );
-      // setMessage(alert);
+      const alert = (
+        <Alert variant="danger" className="py-1 text-start">
+          {msg}
+        </Alert>
+      );
+      setMessage(alert);
     }
   });
 
