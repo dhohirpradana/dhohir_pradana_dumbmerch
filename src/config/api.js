@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const API = axios.create({
-  baseURL: 'https://dumbmerch.dhohirpradana.com/api/v1/',
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 export const setAuthToken = (token) => {
