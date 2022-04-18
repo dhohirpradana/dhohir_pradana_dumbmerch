@@ -19,8 +19,10 @@ export default function ComplainAdmin() {
   const title = "Complain";
   document.title = title;
 
+  var socketServer = process.env.REACT_APP_SOCKET_URL;
+
   useEffect(() => {
-    socket = io("http://localhost:5000", {
+    socket = io(socketServer, {
       auth: {
         token: localStorage.getItem("token"),
       },

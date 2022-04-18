@@ -22,7 +22,7 @@ export default function ProductDetail() {
   useEffect(() => {
     fetchProducts();
     const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
-    const myMidtransClientKey = process.env.MIDTRANS_CLIENT_KEY;
+    const myMidtransClientKey = process.env.REACT_APP_MIDTRANS_CLIENT_KEY;
 
     let scriptTag = document.createElement("script");
     scriptTag.src = midtransScriptUrl;
