@@ -115,50 +115,66 @@ export default function ProductDetail() {
 
   const handleConfirmBuy = useMutation(async () => {
     try {
-      const data = {
-        idProduct: product.id,
-        idSeller: product.idUser,
-        qty: count,
-        price: product.price,
-        courier: ekspedisi,
-        costCourier: ongkir,
-        total: total,
-      };
-
-      const body = JSON.stringify(data);
-
       const config = {
-        method: "POST",
         headers: {
           "Content-type": "application/json",
         },
       };
+      await API.get("/product/" + params.id, config).then(async (response) => {
+        setProduct({ ...response.data.data.product });
+        if (product.qty > 0) {
+          try {
+            const data = {
+              idProduct: product.id,
+              idSeller: product.idUser,
+              qty: count,
+              price: product.price,
+              courier: ekspedisi,
+              costCourier: ongkir,
+              total: total,
+            };
 
-      await API.post("/transaction", body, config)
-        .then((response) => {
-          const token = response.data.payment.token;
-          window.snap.pay(token, {
-            onSuccess: function (result) {
-              console.log(result);
-              navigate("/profile");
-            },
-            onPending: function (result) {
-              console.log(result);
-              navigate("/profile");
-            },
-            onError: function (result) {
-              console.log(result);
-            },
-            onClose: function () {
-              alert("you closed the popup without finishing the payment");
-            },
-          });
-        })
-        .catch((error) => {
-          console.log(error.response);
-        });
+            const body = JSON.stringify(data);
+
+            const config = {
+              method: "POST",
+              headers: {
+                "Content-type": "application/json",
+              },
+            };
+
+            await API.post("/transaction", body, config)
+              .then((response) => {
+                const token = response.data.payment.token;
+                window.snap.pay(token, {
+                  onSuccess: function (result) {
+                    console.log(result);
+                    navigate("/profile");
+                  },
+                  onPending: function (result) {
+                    console.log(result);
+                    navigate("/profile");
+                  },
+                  onError: function (result) {
+                    console.log(result);
+                  },
+                  onClose: function () {
+                    alert("you closed the popup without finishing the payment");
+                  },
+                });
+              })
+              .catch((error) => {
+                console.log(error.response);
+              });
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          alert("Product sold out");
+        }
+      });
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
   });
 
@@ -271,7 +287,9 @@ export default function ProductDetail() {
             <div className="modal-footer d-flex justify-content-center">
               <Button
                 data-mdb-dismiss="modal"
-                disabled={ekspedisi === "" || destination === 0}
+                disabled={
+                  ekspedisi === "" || destination === 0 || product.qty < 1
+                }
                 onClick={() => handleConfirmBuy.mutate()}
                 className="btn btn-indigo primary-color text-light text-capitalize"
                 style={{ width: "100%" }}
