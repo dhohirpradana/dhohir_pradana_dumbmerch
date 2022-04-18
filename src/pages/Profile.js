@@ -90,15 +90,21 @@ export default function Profile() {
               </div>
               <div className="mb-3">
                 <div className="primary-color-text">Phone</div>
-                <div>{user?.profiles[state?.selected].phone ?? "-"}</div>
+                <div>{user?.profiles[state?.selected].phone || "-"}</div>
               </div>
               <div className="mb-3">
                 <div className="primary-color-text">Gender</div>
-                <div>{user?.profiles[state?.selected].gender.name ?? "-"}</div>
+                <div>
+                  {user?.profiles.length
+                    ? user.profiles[state?.selected].gender.name
+                    : "-"}
+                </div>
               </div>
               <div>
                 <div className="primary-color-text">Address</div>
-                <div id="p_wrap">{shippingAddress?.detail ?? "-"}</div>
+                <div id="p_wrap">
+                  {shippingAddress ? shippingAddress.detail : "-"}
+                </div>
               </div>
             </div>
           </div>

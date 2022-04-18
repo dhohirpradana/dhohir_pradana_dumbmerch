@@ -15,12 +15,12 @@ export default function ProductDetail() {
   const [count, setCount] = useState(1);
   const [ekspedisi, setEkspedisi] = useState("");
   const [ongkir, setOngkir] = useState(0);
-  var origin = 152;
-
+  const [origin, setOrigin] = useState(0);
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     fetchProducts();
+    fetchShippingAddress();
     const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
     const myMidtransClientKey = process.env.REACT_APP_MIDTRANS_CLIENT_KEY;
 
@@ -45,9 +45,26 @@ export default function ProductDetail() {
 
       const response = await API.get("/product/" + params.id, config);
       setProduct({ ...response.data.data.product });
+      setOrigin(response.data.data.product.address.city);
       setTotal(response.data.data.product.price);
       setDestination(response.data.data.product.address.city);
     } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchShippingAddress = async () => {
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const response = await API.get("/shipping-address", config);
+      setDestination(response.data.data.address.city);
+    } catch (error) {
+      setDestination(0);
       console.log(error);
     }
   };
@@ -97,13 +114,15 @@ export default function ProductDetail() {
   };
 
   const handleConfirmBuy = useMutation(async () => {
-    console.log("buy");
     try {
       const data = {
         idProduct: product.id,
         idSeller: product.idUser,
         qty: count,
-        price: total,
+        price: product.price,
+        courier: ekspedisi,
+        costCourier: ongkir,
+        total: total,
       };
 
       const body = JSON.stringify(data);
@@ -214,8 +233,12 @@ export default function ProductDetail() {
                   defaultValue={count}
                   placeholder="jumlah"
                 />
+                {destination === 0 && (
+                  <div>Set your destination address first</div>
+                )}
                 <select
                   name="ekspedisi"
+                  disabled={destination === 0}
                   onChange={handleOnChangeCourier}
                   defaultValue=""
                   className="form-select bg-dark text-light"
@@ -248,7 +271,7 @@ export default function ProductDetail() {
             <div className="modal-footer d-flex justify-content-center">
               <Button
                 data-mdb-dismiss="modal"
-                disabled={ekspedisi === ""}
+                disabled={ekspedisi === "" || destination === 0}
                 onClick={() => handleConfirmBuy.mutate()}
                 className="btn btn-indigo primary-color text-light text-capitalize"
                 style={{ width: "100%" }}

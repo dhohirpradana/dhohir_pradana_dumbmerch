@@ -8,7 +8,7 @@ export default function MyTransaction(props) {
   var transaction = props.transaction;
   var product = transaction.product;
   var price = NumFormat(transaction.price, "Rp.");
-  var subTotal = NumFormat(transaction.price, "Rp.");
+  var subTotal = NumFormat(transaction.total, "Rp.");
   var date = DayDate(transaction.createdAt);
   return (
     <div>
@@ -49,7 +49,13 @@ export default function MyTransaction(props) {
                 className="mt-1"
                 style={{ fontSize: 10, fontWeight: "lighter" }}
               >
-                Price : {price}
+                Price : {price} " x" {transaction.total}
+              </div>
+              <div
+                className="mt-1"
+                style={{ fontSize: 10, fontWeight: "lighter" }}
+              >
+                x{transaction.total}
               </div>
               <div
                 className="mt-4"
