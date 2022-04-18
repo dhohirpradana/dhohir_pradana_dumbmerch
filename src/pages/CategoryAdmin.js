@@ -45,7 +45,7 @@ export default function CategoryAdmin() {
 
   return (
     <div>
-      <NavBar page="category" />
+      <NavBar page="category-admin" />
       <div className="mx-5 pt-1">
         <div className="fw-bold fs-4 text-light mb-3 mt-4">List Category</div>
         <div className="table-wrapper">

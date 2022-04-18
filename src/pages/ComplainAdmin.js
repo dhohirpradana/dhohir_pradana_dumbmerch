@@ -90,7 +90,7 @@ export default function ComplainAdmin() {
 
   return (
     <>
-      <NavBar page="complain" />
+      <NavBar page="complain-admin" />
       <Container fluid style={{ height: "86vh" }}>
         <Row>
           <Col
