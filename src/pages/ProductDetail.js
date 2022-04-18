@@ -13,7 +13,6 @@ export default function ProductDetail() {
   const [total, setTotal] = useState(0);
   const [destination, setDestination] = useState(0);
   const [count, setCount] = useState(1);
-  // eslint-disable-next-line no-unused-vars
   const [ekspedisi, setEkspedisi] = useState("");
   const [ongkir, setOngkir] = useState(0);
   var origin = 152;
@@ -249,7 +248,7 @@ export default function ProductDetail() {
             <div className="modal-footer d-flex justify-content-center">
               <Button
                 data-mdb-dismiss="modal"
-                // disabled={ekspedisi === ""}
+                disabled={ekspedisi === ""}
                 onClick={() => handleConfirmBuy.mutate()}
                 className="btn btn-indigo primary-color text-light text-capitalize"
                 style={{ width: "100%" }}

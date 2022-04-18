@@ -30,9 +30,8 @@ export default function ComplainAdmin() {
       socket.emit("load messages", contact);
     });
 
-    // listen error sent from server
     socket.on("connect_error", (err) => {
-      console.error(err.message); // not authorized
+      console.error(err.message);
     });
 
     loadContacts();
