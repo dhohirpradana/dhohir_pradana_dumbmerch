@@ -70,7 +70,7 @@ export default function ProductAdmin() {
 
   return (
     <div>
-      <NavBar page="product" />
+      <NavBar page="product-admin" />
       <div className="mx-5 pt-1">
         <div className="fw-bold fs-4 text-light mb-3 mt-4">List Product</div>
         <Button
