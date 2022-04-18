@@ -49,13 +49,13 @@ export default function MyTransaction(props) {
                 className="mt-1"
                 style={{ fontSize: 10, fontWeight: "lighter" }}
               >
-                Price : {price} " x" {transaction.total}
+                Price : {price}
               </div>
               <div
                 className="mt-1"
                 style={{ fontSize: 10, fontWeight: "lighter" }}
               >
-                x{transaction.total}
+                x{transaction.qty}
               </div>
               <div
                 className="mt-4"
