@@ -19,6 +19,7 @@ import { useContext, useEffect } from "react";
 import { UserContext } from "./context/user";
 import { API, setAuthToken } from "./config/api";
 import ComplainAdmin from "./pages/ComplainAdmin";
+import CategoryAdd from "./pages/CategoryAdd";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -90,7 +91,8 @@ function App() {
         <Route exact path="/complain" element={<Complain />} />
         <Route exact path="/complain-admin" element={<ComplainAdmin />} />
         <Route exact path="/category-admin" element={<CategoryAdmin />} />
-        <Route exact path="/category-edit" element={<CategoryEdit />} />
+        <Route exact path="/category-admin" element={<CategoryAdmin />} />
+        <Route exact path="/category-add" element={<CategoryAdd />} />
         <Route exact path="/product-admin" element={<ProductAdmin />} />
         <Route exact path="/product-add" element={<ProductAdd />} />
         <Route exact path="/product-edit" element={<ProductEdit />} />

@@ -48,6 +48,10 @@ export default function CategoryAdmin() {
     }
   };
 
+  const handleAddCategoryClick = (id) => {
+    navigate("/product-add");
+  };
+
   const handleEditClick = (id) => {
     navigate("/category-edit", {
       state: categories.filter((item) => item.id == id)[0],
@@ -59,6 +63,13 @@ export default function CategoryAdmin() {
       <NavBar page="category-admin" />
       <div className="mx-5 pt-1">
         <div className="fw-bold fs-4 text-light mb-3 mt-4">List Category</div>
+        <Button
+          variant="dark"
+          className="btn-sm mb-3 primary-color"
+          onClick={handleAddCategoryClick}
+        >
+          Add Product
+        </Button>
         <div className="table-wrapper">
           <Table striped bordered hover variant="dark">
             <thead className="sticky-top">
