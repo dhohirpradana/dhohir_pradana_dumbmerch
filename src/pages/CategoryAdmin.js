@@ -68,7 +68,7 @@ export default function CategoryAdmin() {
           className="btn-sm mb-3 primary-color"
           onClick={handleAddCategoryClick}
         >
-          Add Product
+          Add Category
         </Button>
         <div className="table-wrapper">
           <Table striped bordered hover variant="dark">
