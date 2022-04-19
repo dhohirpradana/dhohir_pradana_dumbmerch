@@ -33,8 +33,19 @@ export default function CategoryAdmin() {
     setCategoryId(id);
   };
 
-  const deleteCategory = (id) => {
-    setCategories(categories.filter((item) => item.id != id));
+  const deleteCategory = async (id) => {
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+      },
+    };
+    try {
+      await API.delete("/category/" + id, config).then(() =>
+        setCategories(categories.filter((item) => item.id != id))
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleEditClick = (id) => {
