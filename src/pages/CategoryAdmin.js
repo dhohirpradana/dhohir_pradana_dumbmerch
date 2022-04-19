@@ -49,7 +49,7 @@ export default function CategoryAdmin() {
   };
 
   const handleAddCategoryClick = (id) => {
-    navigate("/product-add");
+    navigate("/category-add");
   };
 
   const handleEditClick = (id) => {
